@@ -75,7 +75,7 @@ public class ClienteView extends javax.swing.JFrame {
 
         txField_sobrenome.setText("sobrenome");
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Clientes");
 
         jLabel2.setText("Sobrenome");
@@ -87,6 +87,11 @@ public class ClienteView extends javax.swing.JFrame {
         txField_telefone.setText("telefone");
 
         btn_new.setText("Novo");
+        btn_new.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_newActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,6 +142,11 @@ public class ClienteView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newActionPerformed
+        // TODO add your handling code here:
+        new NovoClienteView().setVisible(true);
+    }//GEN-LAST:event_btn_newActionPerformed
 
     /**
      * @param args the command line arguments
