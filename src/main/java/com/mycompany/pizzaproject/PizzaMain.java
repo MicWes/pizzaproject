@@ -18,8 +18,7 @@ public class PizzaMain {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        //ClienteView clienteView = new ClienteView();
-        
+        new ClienteView().setVisible(true);
     }
     
 }
