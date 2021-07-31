@@ -5,6 +5,8 @@
  */
 package com.mycompany.pizzaproject;
 
+import com.mycompany.pizzaproject.views.ClienteView;
+
 /**
  *
  * @author Michael
@@ -16,6 +18,8 @@ public class PizzaMain {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        //ClienteView clienteView = new ClienteView();
+        
     }
     
 }
