@@ -8,7 +8,9 @@ package com.mycompany.pizzaproject.views;
 import com.mycompany.pizzaproject.controllers.ClienteTbJpaController;
 import com.mycompany.pizzaproject.models.ClienteTb;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.table.TableModel;
 
 /**
@@ -21,17 +23,17 @@ public class ClienteView extends javax.swing.JFrame {
      * Creates new form ClienteView
      */
     public ClienteView() {
-        //create table model
-        //ClienteTb clienteModel = new ClienteTb();
-        //tb_clientes.setModel((TableModel) clienteModel);
-        
-        //create controller
-        //ClienteTbJpaController clienteController = new ClienteTbJpaController((EntityManagerFactory) clienteModel);
-        //btn_filter.addActionListener((ActionListener) clienteController);
         initComponents();
         setLocationRelativeTo(null);
+        
+        
     }
 
+    public void listTable(){
+        ClienteTbJpaController clienteController = new ClienteTbJpaController(Persistence.createEntityManagerFactory("com.mycompany_pizzaproject_jar_1.0-SNAPSHOTPU"));
+        
+        List<ClienteTb> clientesList = clienteController.findClienteTbEntities();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
