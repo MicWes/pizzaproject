@@ -42,6 +42,8 @@ public class NovoClienteView extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jBtnSalvar = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Novo Cliente");
 
@@ -126,6 +128,7 @@ public class NovoClienteView extends javax.swing.JFrame {
 
         clienteController.create(clienteTb);
         
+        dispose();
     }
 
     /**

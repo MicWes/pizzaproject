@@ -33,6 +33,10 @@ public class ClienteView extends javax.swing.JFrame {
         ClienteTbJpaController clienteController = new ClienteTbJpaController();
         
         List<ClienteTb> clientesList = clienteController.findClienteTbEntities();
+        
+        for (ClienteTb cliente : clientesList){
+            //tb_clientes
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,6 +58,7 @@ public class ClienteView extends javax.swing.JFrame {
         btn_new = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setLocation(new java.awt.Point(0, 0));
 
@@ -73,7 +78,9 @@ public class ClienteView extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tb_clientes.setName(""); // NOI18N
         jScrollPane1.setViewportView(tb_clientes);
+        tb_clientes.getAccessibleContext().setAccessibleName("tbClientes");
 
         txField_sobrenome.setText("sobrenome");
 
