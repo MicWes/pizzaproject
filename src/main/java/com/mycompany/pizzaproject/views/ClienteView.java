@@ -5,12 +5,6 @@
  */
 package com.mycompany.pizzaproject.views;
 
-import com.mycompany.pizzaproject.controllers.ClienteTbJpaController;
-import com.mycompany.pizzaproject.models.ClienteTb;
-import java.awt.event.ActionListener;
-import javax.persistence.EntityManagerFactory;
-import javax.swing.table.TableModel;
-
 /**
  *
  * @author Michael
