@@ -18,7 +18,7 @@ public class EntityManagerUtil {
 
 	public static EntityManager getEntityManager() {
 		 if (emf == null){
-			emf = Persistence.createEntityManagerFactory("com.mycompany_pizzaproject_jar_1.0-SNAPSHOTPU");
+			emf = Persistence.createEntityManagerFactory("pizza_db");
 		 }
 		 return emf.createEntityManager();
 	}

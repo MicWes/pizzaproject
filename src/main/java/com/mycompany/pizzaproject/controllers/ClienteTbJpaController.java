@@ -7,6 +7,7 @@ package com.mycompany.pizzaproject.controllers;
 
 import com.mycompany.pizzaproject.controllers.exceptions.IllegalOrphanException;
 import com.mycompany.pizzaproject.controllers.exceptions.NonexistentEntityException;
+import com.mycompany.pizzaproject.dao.EntityManagerUtil;
 import com.mycompany.pizzaproject.models.ClienteTb;
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -18,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -26,13 +26,11 @@ import javax.persistence.EntityManagerFactory;
  */
 public class ClienteTbJpaController implements Serializable {
 
-    public ClienteTbJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    public ClienteTbJpaController() {
     }
-    private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
-        return emf.createEntityManager();
+        return EntityManagerUtil.getEntityManager();
     }
 
     public void create(ClienteTb clienteTb) {

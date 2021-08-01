@@ -5,7 +5,10 @@
  */
 package com.mycompany.pizzaproject;
 
+import com.mycompany.pizzaproject.dao.EntityManagerUtil;
 import com.mycompany.pizzaproject.views.MenuView;
+
+import javax.persistence.EntityManager;
 
 /**
  *

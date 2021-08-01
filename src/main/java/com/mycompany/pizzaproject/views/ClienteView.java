@@ -30,7 +30,7 @@ public class ClienteView extends javax.swing.JFrame {
     }
 
     public void listTable(){
-        ClienteTbJpaController clienteController = new ClienteTbJpaController(Persistence.createEntityManagerFactory("com.mycompany_pizzaproject_jar_1.0-SNAPSHOTPU"));
+        ClienteTbJpaController clienteController = new ClienteTbJpaController();
         
         List<ClienteTb> clientesList = clienteController.findClienteTbEntities();
     }

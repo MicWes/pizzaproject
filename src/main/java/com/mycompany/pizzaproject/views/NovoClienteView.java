@@ -9,8 +9,6 @@ import com.mycompany.pizzaproject.controllers.ClienteTbJpaController;
 import com.mycompany.pizzaproject.dao.EntityManagerUtil;
 import com.mycompany.pizzaproject.models.ClienteTb;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -117,16 +115,18 @@ public class NovoClienteView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalvarActionPerformed
-        // TODO add your handling code here:
+    private void jBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+
         ClienteTb clienteTb = new ClienteTb();
         clienteTb.setNome(jTextNome.getText()); 
         clienteTb.setSobrenome(jTextSobrenome.getText());
         clienteTb.setTelefone(jTextTelefone.getText());
-        
-        ClienteTbJpaController clienteController = new ClienteTbJpaController(Persistence.createEntityManagerFactory("com.mycompany_pizzaproject_jar_1.0-SNAPSHOTPU")); //EntityManagerFactory
+
+        ClienteTbJpaController clienteController = new ClienteTbJpaController();
+
         clienteController.create(clienteTb);
-    }//GEN-LAST:event_jBtnSalvarActionPerformed
+        
+    }
 
     /**
      * @param args the command line arguments
