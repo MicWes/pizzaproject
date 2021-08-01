@@ -25,8 +25,6 @@ public class NovoClienteView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
-        
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.mycompany_pizzaproject_jar_1.0-SNAPSHOTPU");
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -126,7 +124,7 @@ public class NovoClienteView extends javax.swing.JFrame {
         clienteTb.setSobrenome(jTextSobrenome.getText());
         clienteTb.setTelefone(jTextTelefone.getText());
         
-        ClienteTbJpaController clienteController = new ClienteTbJpaController(emf); //EntityManagerFactory
+        ClienteTbJpaController clienteController = new ClienteTbJpaController(Persistence.createEntityManagerFactory("com.mycompany_pizzaproject_jar_1.0-SNAPSHOTPU")); //EntityManagerFactory
         clienteController.create(clienteTb);
     }//GEN-LAST:event_jBtnSalvarActionPerformed
 
