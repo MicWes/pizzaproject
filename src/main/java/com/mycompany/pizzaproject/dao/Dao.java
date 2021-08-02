@@ -22,4 +22,7 @@ public abstract class Dao<T extends Model> {
     public abstract List<T> list(boolean all, int maxResults, int firstResult);
     public abstract T find(Integer id);
     public abstract int getCount();
+    public abstract T create(T model);
+    public abstract T update(T model);
+    public abstract void delete(Integer id);
 }

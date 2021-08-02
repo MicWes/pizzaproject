@@ -5,7 +5,10 @@
  */
 package com.mycompany.pizzaproject.dao;
 
+import com.mycompany.pizzaproject.models.PizzaTb;
 import com.mycompany.pizzaproject.models.SaborTb;
+import com.mycompany.pizzaproject.models.TipoTb;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -16,9 +19,9 @@ import javax.persistence.criteria.Root;
  *
  * @author mathe
  */
-public class Sabor extends Dao<SaborTb> {
+public class SaborDao extends Dao<SaborTb> {
 
-    public Sabor() {
+    public SaborDao() {
     }
 
     @Override
@@ -36,7 +39,6 @@ public class Sabor extends Dao<SaborTb> {
         } finally {
             em.close();
         }
-    
     }
     
     @Override
@@ -60,6 +62,54 @@ public class Sabor extends Dao<SaborTb> {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+
+    @Override
+    public SaborTb create(SaborTb model) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.persist(model);
+            em.getTransaction().commit();
+        }  finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return model;
+    }
+
+    @Override
+    public SaborTb update(SaborTb model) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.merge(model);
+            em.getTransaction().commit();
+            return model;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    @Override
+    public void delete(Integer id) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            SaborTb saborTb = em.find(SaborTb.class, id);
+            em.remove(saborTb);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
     }
 }

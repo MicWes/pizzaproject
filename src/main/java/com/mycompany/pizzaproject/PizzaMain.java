@@ -5,8 +5,10 @@
  */
 package com.mycompany.pizzaproject;
 
+import com.mycompany.pizzaproject.controllers.SaborTbJpaController;
 import com.mycompany.pizzaproject.dao.EntityManagerUtil;
 import com.mycompany.pizzaproject.views.MenuView;
+import com.mycompany.pizzaproject.views.SaborView;
 
 import javax.persistence.EntityManager;
 
@@ -21,7 +23,8 @@ public class PizzaMain {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        new MenuView().setVisible(true);
+//        new MenuView().setVisible(true);
+           new SaborTbJpaController();
     }
     
 }

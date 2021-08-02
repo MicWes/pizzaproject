@@ -5,20 +5,20 @@
  */
 package com.mycompany.pizzaproject.views;
 
+import com.mycompany.pizzaproject.controllers.Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import org.ufpr.contato.controller.ContatoController;
 
 /**
  *
  * @author rafae
  */
-public class BotoesContatoView extends javax.swing.JPanel {
+public class BotoesCrud extends javax.swing.JPanel {
 
     /**
      * Creates new form BotoesContatoView
      */
-    public BotoesContatoView() {
+    public BotoesCrud() {
         initComponents();
     }
 
@@ -80,11 +80,11 @@ public class BotoesContatoView extends javax.swing.JPanel {
     private javax.swing.JButton botaoListar;
     // End of variables declaration//GEN-END:variables
 
-    public void setController(ContatoController controller) {
+    public void setController(Controller controller) {
       
-        this.botaoCriar.addActionListener(e -> controller.criarContato());
-        this.botaoAtualizar.addActionListener(e -> controller.atualizarContato());
-        this.botaoExcluir.addActionListener(e -> controller.excluirContato());
-        this.botaoListar.addActionListener(e -> controller.listarContato());
+        this.botaoCriar.addActionListener(e -> controller.create());
+        this.botaoAtualizar.addActionListener(e -> controller.edit());
+        this.botaoExcluir.addActionListener(e -> controller.destroy());
+        this.botaoListar.addActionListener(e -> controller.list());
     }
 }

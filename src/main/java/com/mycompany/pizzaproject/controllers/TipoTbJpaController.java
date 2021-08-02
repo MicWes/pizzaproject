@@ -51,7 +51,7 @@ public class TipoTbJpaController implements Serializable {
             tipoTb.setSaborTbCollection(attachedSaborTbCollection);
             em.persist(tipoTb);
             for (SaborTb saborTbCollectionSaborTb : tipoTb.getSaborTbCollection()) {
-                TipoTb oldTipoIdOfSaborTbCollectionSaborTb = saborTbCollectionSaborTb.getTipoId();
+                TipoTb oldTipoIdOfSaborTbCollectionSaborTb = saborTbCollectionSaborTb.getTipoTb();
                 saborTbCollectionSaborTb.setTipoId(tipoTb);
                 saborTbCollectionSaborTb = em.merge(saborTbCollectionSaborTb);
                 if (oldTipoIdOfSaborTbCollectionSaborTb != null) {
@@ -97,7 +97,7 @@ public class TipoTbJpaController implements Serializable {
             tipoTb = em.merge(tipoTb);
             for (SaborTb saborTbCollectionNewSaborTb : saborTbCollectionNew) {
                 if (!saborTbCollectionOld.contains(saborTbCollectionNewSaborTb)) {
-                    TipoTb oldTipoIdOfSaborTbCollectionNewSaborTb = saborTbCollectionNewSaborTb.getTipoId();
+                    TipoTb oldTipoIdOfSaborTbCollectionNewSaborTb = saborTbCollectionNewSaborTb.getTipoTb();
                     saborTbCollectionNewSaborTb.setTipoId(tipoTb);
                     saborTbCollectionNewSaborTb = em.merge(saborTbCollectionNewSaborTb);
                     if (oldTipoIdOfSaborTbCollectionNewSaborTb != null && !oldTipoIdOfSaborTbCollectionNewSaborTb.equals(tipoTb)) {

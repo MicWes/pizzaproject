@@ -5,44 +5,26 @@
  */
 package com.mycompany.pizzaproject.views;
 
-import com.mycompany.pizzaproject.controllers.Controller;
 import com.mycompany.pizzaproject.controllers.SaborTbJpaController;
 import com.mycompany.pizzaproject.models.SaborTb;
+import java.awt.event.MouseAdapter;
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author mathe
  */
-public class SaborView extends View {
+public class SaborView extends View<SaborTb, SaborTbJpaController, SaborTabela> {
     
-    private DefaultTableModel model = new DefaultTableModel();
-
     /**
      * Creates new form SaborView
      */
     public SaborView() {
         initComponents();
-        model = (DefaultTableModel) jTable1.getModel();
-        readTable();
+        this.model = new SaborTabela();
     }
     
-    public void readTable() {
-        SaborTbJpaController saborController = new SaborTbJpaController(this);
-        model.setRowCount(0);
-                
-        List<SaborTb> sabores = saborController.list();
-        
-        sabores.forEach(sabor -> {
-            model.addRow(new Object[]{
-                sabor.getSaborId(),
-                sabor.getDescricao(),
-                sabor.getTipoId(),
-            });
-        });
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,21 +36,14 @@ public class SaborView extends View {
 
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        btn_new = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        botoesCrud1 = new com.mycompany.pizzaproject.views.BotoesCrud();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("Sabores");
-
-        btn_new.setText("Novo");
-        btn_new.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_newActionPerformed(evt);
-            }
-        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,9 +79,9 @@ public class SaborView extends View {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_new)))
+                        .addComponent(botoesCrud1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -118,25 +93,21 @@ public class SaborView extends View {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(btn_new))
-                .addGap(32, 32, 32)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(botoesCrud1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(41, 41, 41)
+                    .addGap(59, 59, 59)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(257, Short.MAX_VALUE)))
+                    .addContainerGap(239, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_newActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,7 +145,7 @@ public class SaborView extends View {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_new;
+    private com.mycompany.pizzaproject.views.BotoesCrud botoesCrud1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -182,12 +153,67 @@ public class SaborView extends View {
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void setController(Controller controller) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void initView() {
+        jTable1.setModel(this.model);
+        jTable1.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                linhaClicadaParaAtualizacao = jTable1.rowAtPoint(evt.getPoint());
+                SaborTb sabor = model.getModel(linhaClicadaParaAtualizacao);
+//                formularioContatoView.setContato(contato);
+            }
+        });
+
+        java.awt.EventQueue.invokeLater(() ->  this.setVisible(true));
     }
 
     @Override
-    public void initView() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void list(List<SaborTb> models) {
+        this.model.limpaTabela();
+        models.forEach(sabor -> {
+            this.model.insert(sabor);
+        });
+    }
+
+    @Override
+    public SaborTb getForm() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
+    }
+
+    @Override
+    public SaborTb getModel() {
+        return this.model.getModel(this.linhaClicadaParaAtualizacao);
+    }
+
+    @Override
+    public void updateModel(SaborTb sabor) {
+        this.model.fireTableRowsUpdated(this.linhaClicadaParaAtualizacao, this.linhaClicadaParaAtualizacao);
+    }
+
+    @Override
+    public void insertModel(SaborTb sabor) {
+        this.model.insert(sabor);
+    }
+
+    @Override
+    public void deleteModel(List<SaborTb> sabores) {
+        this.model.removeModels(sabores);
+    }
+
+    @Override
+    public List<SaborTb> getModels() {
+        int[] linhasSelecionadas = jTable1.getSelectedRows();
+        List<SaborTb> listaExcluir = new ArrayList();
+        for (int i = 0; i < linhasSelecionadas.length; i++) {
+            SaborTb sabor = this.model.getModel(linhasSelecionadas[i]);
+            listaExcluir.add(sabor);
+        }
+        return listaExcluir;
+    }
+
+    @Override
+    public void setController(SaborTbJpaController controller) {
+        this.botoesCrud1.setController(controller);
     }
 }
