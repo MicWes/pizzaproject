@@ -5,7 +5,6 @@
  */
 package com.mycompany.pizzaproject.models;
 
-import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -30,7 +29,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "SaborTb.findAll", query = "SELECT s FROM SaborTb s"),
     @NamedQuery(name = "SaborTb.findBySaborId", query = "SELECT s FROM SaborTb s WHERE s.saborId = :saborId"),
     @NamedQuery(name = "SaborTb.findByDescricao", query = "SELECT s FROM SaborTb s WHERE s.descricao = :descricao")})
-public class SaborTb implements Serializable {
+public class SaborTb extends Model {
 
     private static final long serialVersionUID = 1L;
     @Id

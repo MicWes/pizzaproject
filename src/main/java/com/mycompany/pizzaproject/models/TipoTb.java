@@ -33,17 +33,21 @@ import javax.persistence.Table;
 public class TipoTb implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "tipo_id")
     private Integer tipoId;
+    
     @Basic(optional = false)
     @Column(name = "titulo")
     private String titulo;
+    
     @Basic(optional = false)
     @Column(name = "preco")
     private double preco;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoId")
     private Collection<SaborTb> saborTbCollection;
 
