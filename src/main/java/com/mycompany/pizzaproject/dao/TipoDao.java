@@ -5,7 +5,7 @@
  */
 package com.mycompany.pizzaproject.dao;
 
-import com.mycompany.pizzaproject.models.SaborTb;
+import com.mycompany.pizzaproject.models.TipoTb;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -16,17 +16,17 @@ import javax.persistence.criteria.Root;
  *
  * @author mathe
  */
-public class SaborDao extends Dao<SaborTb> {
+public class TipoDao extends Dao<TipoTb> {
 
-    public SaborDao() {
+    public TipoDao() {
     }
 
     @Override
-    public List<SaborTb> list(boolean all, int maxResults, int firstResult) {
+    public List<TipoTb> list(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(SaborTb.class));
+            cq.select(cq.from(TipoTb.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -39,10 +39,10 @@ public class SaborDao extends Dao<SaborTb> {
     }
     
     @Override
-    public SaborTb find(Integer id) {
+    public TipoTb find(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(SaborTb.class, id);
+            return em.find(TipoTb.class, id);
         } finally {
             em.close();
         }
@@ -53,7 +53,7 @@ public class SaborDao extends Dao<SaborTb> {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<SaborTb> rt = cq.from(SaborTb.class);
+            Root<TipoTb> rt = cq.from(TipoTb.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -63,7 +63,7 @@ public class SaborDao extends Dao<SaborTb> {
     }
 
     @Override
-    public SaborTb create(SaborTb model) {
+    public TipoTb create(TipoTb model) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -79,7 +79,7 @@ public class SaborDao extends Dao<SaborTb> {
     }
 
     @Override
-    public SaborTb update(SaborTb model) {
+    public TipoTb update(TipoTb model) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -100,8 +100,8 @@ public class SaborDao extends Dao<SaborTb> {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            SaborTb saborTb = em.find(SaborTb.class, id);
-            em.remove(saborTb);
+            TipoTb tipoTb = em.find(TipoTb.class, id);
+            em.remove(tipoTb);
             em.getTransaction().commit();
         } finally {
             if (em != null) {

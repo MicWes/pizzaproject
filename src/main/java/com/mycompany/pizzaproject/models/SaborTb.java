@@ -40,10 +40,10 @@ public class SaborTb extends Model {
     @Basic(optional = false)
     @Column(name = "descricao")
     private String descricao;
-    @ManyToMany(mappedBy = "saborTbCollection", cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "saborTbCollection", cascade = CascadeType.MERGE)
     private Collection<PizzaTb> pizzaTbCollection;
     @JoinColumn(name = "tipo_id", referencedColumnName = "tipo_id")
-    @ManyToOne(optional = false,cascade = CascadeType.REMOVE)
+    @ManyToOne(optional = false,cascade = CascadeType.MERGE)
     private TipoTb tipoId;
     public SaborTb() {
     }

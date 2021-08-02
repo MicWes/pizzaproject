@@ -17,9 +17,10 @@ import javax.swing.JOptionPane;
  */
 public abstract class View<T extends Model, V extends Controller, W extends TableModel> extends javax.swing.JFrame {
     
+    public T element;
     public W model;
     public int linhaClicadaParaAtualizacao = -1;
-    
+        
     public abstract void setController(V controller);
 
     public abstract void initView();
@@ -35,6 +36,8 @@ public abstract class View<T extends Model, V extends Controller, W extends Tabl
     
     public abstract void list(List<T> models);
     public abstract T getForm();
+    public abstract T getForm(Boolean update);
+    public abstract void setForm(T model);
     public abstract T getModel();
     public abstract List<T> getModels();
     public abstract void updateModel(T model);

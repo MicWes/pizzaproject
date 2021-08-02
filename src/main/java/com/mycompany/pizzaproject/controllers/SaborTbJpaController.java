@@ -65,7 +65,7 @@ public class SaborTbJpaController extends Controller<SaborDao, SaborView> {
                 this.view.updateModel(sabor);
             }
         }catch(Exception ex){
-            view.showError("Erro ao atualizar contato.");
+            view.showError("Erro ao atualizar sabor.");
         }
     }
 
@@ -78,7 +78,7 @@ public class SaborTbJpaController extends Controller<SaborDao, SaborView> {
             }
             this.view.deleteModel(sabores);
         } catch(Exception ex){
-            view.showError("Erro ao excluir contatos.");
+            view.showError("Erro ao excluir os sabores.");
         }
     }
 }
