@@ -8,6 +8,8 @@ package com.mycompany.pizzaproject.controllers;
 import com.mycompany.pizzaproject.controllers.exceptions.IllegalOrphanException;
 import com.mycompany.pizzaproject.controllers.exceptions.NonexistentEntityException;
 import com.mycompany.pizzaproject.dao.EntityManagerUtil;
+import com.mycompany.pizzaproject.dao.SaborDao;
+import com.mycompany.pizzaproject.models.Circulo;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
@@ -16,6 +18,9 @@ import javax.persistence.criteria.Root;
 import com.mycompany.pizzaproject.models.ClienteTb;
 import com.mycompany.pizzaproject.models.PedidoTb;
 import com.mycompany.pizzaproject.models.PizzaTb;
+import com.mycompany.pizzaproject.models.Quadrado;
+import com.mycompany.pizzaproject.models.SaborTb;
+import com.mycompany.pizzaproject.models.Triangulo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -227,6 +232,50 @@ public class PedidoTbJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    public Double calculaAreaPizza(String forma, Double tamanho){
+        switch(forma){
+        case("Quadrado"):
+            Quadrado quadrado = new Quadrado();
+            quadrado.calculaAreaQuadrado(tamanho);
+            return quadrado.getArea();
+        case("Triângulo"):
+            Triangulo triangulo = new Triangulo();
+            triangulo.calculaAreaTriangulo(tamanho);
+            return triangulo.getArea();
+        case("Círculo"):
+            Circulo circulo = new Circulo();
+            circulo.calculaAreaCirculo(tamanho);
+            return circulo.getArea();
+        default:
+            return 0.0;
+        }
+    }
+    
+    public Double calculaDimensaoPizza(String forma, Double area){
+        switch(forma){
+        case("Quadrado"):
+            Quadrado quadrado = new Quadrado();
+            quadrado.calculaLadoQuadrado(area);
+            return quadrado.getLado();
+        case("Triângulo"):
+            Triangulo triangulo = new Triangulo();
+            triangulo.calculaLadoTriangulo(area);
+            return triangulo.getLado();
+        case("Círculo"):
+            Circulo circulo = new Circulo();
+            circulo.calculaRaioCirculo(area);
+            return circulo.getRaio();
+        default:
+            return 0.0;
+        }
+    }
+    
+    public List<SaborTb> findSaborTbEntities(){
+        SaborDao dao = new SaborDao();
+        List<SaborTb> sabores = dao.list(true, -1, -1);
+        return sabores;
     }
     
 }

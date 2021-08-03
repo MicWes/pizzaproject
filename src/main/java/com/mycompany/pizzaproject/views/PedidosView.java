@@ -7,13 +7,16 @@ package com.mycompany.pizzaproject.views;
 
 import com.mycompany.pizzaproject.controllers.ClienteTbJpaController;
 import com.mycompany.pizzaproject.controllers.PedidoTbJpaController;
-import com.mycompany.pizzaproject.controllers.SaborTbJpaController;
 import com.mycompany.pizzaproject.models.ClienteTb;
 import com.mycompany.pizzaproject.models.PedidoTb;
+import com.mycompany.pizzaproject.models.PizzaTb;
 import com.mycompany.pizzaproject.models.SaborTb;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -26,6 +29,58 @@ public class PedidosView extends javax.swing.JFrame {
     public PedidosView() {
         initComponents();
         preencheComboSabores();
+        
+        txtTamanho.setEnabled(true);
+        txtQuantidade.setEnabled(false);
+        
+        txtTamanho.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+              calculaArea();
+            }
+            public void removeUpdate(DocumentEvent e) {
+              calculaArea();
+            }
+            public void insertUpdate(DocumentEvent e) {
+              calculaArea();
+            }
+
+            public void calculaArea() {
+                if(rbDimensao.isSelected()){
+                    PedidoTbJpaController pedidoController = new PedidoTbJpaController();
+                    String formaSelecionada = cbForma.getSelectedItem().toString();
+                    if(txtTamanho.getText().equals(""))
+                        return;
+
+                    Double tamanho = Double.parseDouble(txtTamanho.getText().replace(",", "."));
+                    txtQuantidade.setText(String.format("%.2f",pedidoController.calculaAreaPizza(formaSelecionada, tamanho)));
+                }
+            }
+        });   
+        
+        txtQuantidade.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+              calculaLadoRaio();
+            }
+            public void removeUpdate(DocumentEvent e) {
+              calculaLadoRaio();
+            }
+            public void insertUpdate(DocumentEvent e) {
+              calculaLadoRaio();
+            }
+
+            public void calculaLadoRaio() {
+                if(rbQuantidade.isSelected()){
+                    PedidoTbJpaController pedidoController = new PedidoTbJpaController();
+                    String formaSelecionada = cbForma.getSelectedItem().toString();
+                    if(txtQuantidade.getText().equals(""))
+                        return;
+
+                    Double area = Double.parseDouble(txtQuantidade.getText().replace(",", "."));
+                    txtTamanho.setText(String.format("%.2f",pedidoController.calculaDimensaoPizza(formaSelecionada, area)));
+                }
+            }
+        });
+
     }
      
     List<SaborTb> sabores = new ArrayList<SaborTb>();
@@ -39,6 +94,7 @@ public class PedidosView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup3 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         btnPesquisarCliente = new javax.swing.JButton();
@@ -53,12 +109,7 @@ public class PedidosView extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         cbForma = new javax.swing.JComboBox<>();
         cbSabor1 = new javax.swing.JComboBox<>();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        txtAltura = new javax.swing.JTextField();
-        txtLargura = new javax.swing.JTextField();
-        txtTamanho = new javax.swing.JTextField();
+        lblForma = new javax.swing.JLabel();
         btnAlterarItem = new javax.swing.JButton();
         btnExcluirItem = new javax.swing.JButton();
         btnIncluirItem = new javax.swing.JButton();
@@ -71,6 +122,13 @@ public class PedidosView extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         cbSabor2 = new javax.swing.JComboBox<>();
         txtTelefoneClientePedido = new javax.swing.JFormattedTextField();
+        txtTamanho = new javax.swing.JFormattedTextField();
+        lblQuantidade = new javax.swing.JLabel();
+        txtQuantidade = new javax.swing.JFormattedTextField();
+        rbDimensao = new javax.swing.JRadioButton();
+        rbQuantidade = new javax.swing.JRadioButton();
+        cbTipo1 = new javax.swing.JComboBox<>();
+        cbTipo2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,7 +162,12 @@ public class PedidosView extends javax.swing.JFrame {
 
         jLabel16.setText("Sabor 1:");
 
-        cbForma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Retângulo", "Triângulo", "Círculo" }));
+        cbForma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quadrado", "Triângulo", "Círculo" }));
+        cbForma.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbFormaItemStateChanged(evt);
+            }
+        });
         cbForma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbFormaActionPerformed(evt);
@@ -118,11 +181,8 @@ public class PedidosView extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setText("Altura(m):");
-
-        jLabel11.setText("Largura(m):");
-
-        jLabel12.setText("Área(cm²):");
+        lblForma.setText("Lado (cm):");
+        lblForma.setToolTipText("");
 
         btnAlterarItem.setText("Alterar Item do Pedido");
         btnAlterarItem.addActionListener(new java.awt.event.ActionListener() {
@@ -183,6 +243,44 @@ public class PedidosView extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        txtTamanho.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+
+        lblQuantidade.setText("Quantidade (cm²):");
+        lblQuantidade.setToolTipText("");
+
+        txtQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+
+        buttonGroup3.add(rbDimensao);
+        rbDimensao.setSelected(true);
+        rbDimensao.setText("Lado/Raio");
+        rbDimensao.setToolTipText("");
+        rbDimensao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbDimensaoActionPerformed(evt);
+            }
+        });
+
+        buttonGroup3.add(rbQuantidade);
+        rbQuantidade.setText("Quantidade");
+        rbQuantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbQuantidadeActionPerformed(evt);
+            }
+        });
+
+        cbTipo1.setName(""); // NOI18N
+        cbTipo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipo1ActionPerformed(evt);
+            }
+        });
+
+        cbTipo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipo2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -193,38 +291,27 @@ public class PedidosView extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jSeparator3))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(195, 195, 195)
-                                .addComponent(jLabel8))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNomeClientePedido)
-                                    .addComponent(txtSobrenomeClientePedido, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
-                                    .addComponent(txtTelefoneClientePedido))
-                                .addGap(18, 18, 18)
-                                .addComponent(btnPesquisarCliente))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(157, 157, 157)
-                                .addComponent(jLabel7))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(137, 137, 137)
-                                .addComponent(jLabel13)))
-                        .addGap(82, 82, 82))
+                        .addGap(195, 195, 195)
+                        .addComponent(jLabel8))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAlterarItem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExcluirItem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnIncluirItem)
-                        .addGap(33, 33, 33))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNomeClientePedido)
+                            .addComponent(txtSobrenomeClientePedido, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                            .addComponent(txtTelefoneClientePedido))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPesquisarCliente))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(jLabel7))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(137, 137, 137)
+                        .addComponent(jLabel13))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(208, 208, 208)
                         .addComponent(jLabel14)
@@ -235,35 +322,51 @@ public class PedidosView extends javax.swing.JFrame {
                         .addComponent(jSeparator2))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
-                                    .addComponent(jLabel16))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbSabor1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbForma, 0, 180, Short.MAX_VALUE)))
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel17))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cbForma, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(rbDimensao)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rbQuantidade))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cbTipo1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cbTipo2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cbSabor1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cbSabor2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(121, 121, 121)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(lblQuantidade)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(lblForma)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(16, 16, 16))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addGap(40, 40, 40)
-                                .addComponent(cbSabor2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(jLabel10))
-                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtLargura, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAltura, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(89, 89, 89)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAlterarItem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnExcluirItem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnIncluirItem)))
+                        .addGap(33, 33, 33)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -288,19 +391,27 @@ public class PedidosView extends javax.swing.JFrame {
                 .addGap(1, 1, 1)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(cbForma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbDimensao)
+                    .addComponent(rbQuantidade))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(cbForma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16)
-                            .addComponent(cbSabor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(7, 7, 7)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(cbSabor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel16)
+                                    .addComponent(cbSabor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(7, 7, 7)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel17)
+                                    .addComponent(cbSabor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(cbTipo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(7, 7, 7)
+                                .addComponent(cbTipo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(98, 98, 98)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnIncluirItem)
@@ -318,16 +429,12 @@ public class PedidosView extends javax.swing.JFrame {
                             .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(txtAltura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtLargura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
+                            .addComponent(lblForma)
+                            .addComponent(txtTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
+                            .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblQuantidade))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -336,12 +443,12 @@ public class PedidosView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 654, Short.MAX_VALUE)
+            .addGap(0, 828, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 8, Short.MAX_VALUE)
+                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 8, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,19 +480,63 @@ public class PedidosView extends javax.swing.JFrame {
     }//GEN-LAST:event_cbFormaActionPerformed
 
     private void btnIncluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirItemActionPerformed
+        String formaSelecionada = cbForma.getSelectedItem().toString();
+        if(txtTamanho.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "A dimensão da pizza deve ser informada! (Lado/Raio)", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if(txtQuantidade.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "A quantidade da pizza deve ser informada!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        Double tamanho = Double.parseDouble(txtTamanho.getText().replace(",", "."));
+        switch(formaSelecionada){
+            case("Quadrado"):
+                if(tamanho < 10 || tamanho > 40){
+                    JOptionPane.showMessageDialog(null, "O lado da pizza retangular deve possuir no mínimo 10 cm e no máximo 40 cm!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                break;
+            case("Triângulo"):
+                if(tamanho < 20 || tamanho > 60){
+                    JOptionPane.showMessageDialog(null, "O lado da pizza triangular deve possuir no mínimo 20 cm e no máximo 60 cm!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                break;
+            case("Círculo"):
+                if(tamanho < 7 || tamanho > 23){
+                    JOptionPane.showMessageDialog(null, "O raio da pizza circular deve possuir no mínimo 7 cm e no máximo 23 cm!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                break;
+            default:
+                break;
+        }        
+        
+        if(clienteTb == null){
+            JOptionPane.showMessageDialog(null, "Nenhum cliente selecionado!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        PizzaTb pizzaTb = new PizzaTb();
+        pizzaTb.setForma(formaSelecionada);
+        pizzaTb.setTamanho(tamanho);
+//        pizzaTb.setTotalPizza(txtQuantidade.getValue() * ((/*sabor1.getValor() + sabor2.getValor()*/)/2));
+        //pizzaTb.setSaborTbCollection(new ArrayList<SaborTb>());
+        
         PedidoTb pedidoTb = new PedidoTb();
         pedidoTb.setClienteId(clienteTb); 
         pedidoTb.setStatus("");
         pedidoTb.setTotalPedido(Integer.parseInt(txtTotalPedido.getText()));
         PedidoTbJpaController pedidoController = new PedidoTbJpaController();
-        pedidoController.create(pedidoTb);
-        dispose();
-        
+        pedidoController.create(pedidoTb);        
     }//GEN-LAST:event_btnIncluirItemActionPerformed
 
     private void preencheComboSabores(){
-        SaborTbJpaController saborController = new SaborTbJpaController();
-        this.sabores = saborController.findSaborTbEntities();
+        PedidoTbJpaController pedidoController = new PedidoTbJpaController();
+        this.sabores = pedidoController.findSaborTbEntities();
          cbSabor1.removeAllItems();
          cbSabor2.removeAllItems();
          for(SaborTb s : sabores){
@@ -397,13 +548,49 @@ public class PedidosView extends javax.swing.JFrame {
     private void btnPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClienteActionPerformed
         
         ClienteTbJpaController clienteController = new ClienteTbJpaController();
-        ClienteTb cliente = clienteController.findByTelefone(txtTelefoneClientePedido.getValue().toString());
+        clienteTb = clienteController.findByTelefone(txtTelefoneClientePedido.getValue().toString());
         
-        txtTelefoneClientePedido.setText(cliente.getTelefone()); 
-        txtNomeClientePedido.setText(cliente.getNome());
-        txtSobrenomeClientePedido.setText(cliente.getSobrenome());
-        
+        txtTelefoneClientePedido.setText(clienteTb.getTelefone()); 
+        txtNomeClientePedido.setText(clienteTb.getNome());
+        txtSobrenomeClientePedido.setText(clienteTb.getSobrenome());        
     }//GEN-LAST:event_btnPesquisarClienteActionPerformed
+
+    private void cbFormaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbFormaItemStateChanged
+        String formaSelecionada = cbForma.getSelectedItem().toString();
+        switch(formaSelecionada){
+                case("Quadrado"):
+                case("Triângulo"):
+                    lblForma.setText("Lado (cm): ");
+                    break;
+                case("Círculo"):
+                    lblForma.setText("Raio (cm): ");
+                    break;
+                default:
+                    break;
+        }       
+    }//GEN-LAST:event_cbFormaItemStateChanged
+
+    private void rbDimensaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbDimensaoActionPerformed
+        if(rbDimensao.isSelected()){
+            txtTamanho.setEnabled(true);
+            txtQuantidade.setEnabled(false);
+        }
+    }//GEN-LAST:event_rbDimensaoActionPerformed
+
+    private void rbQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbQuantidadeActionPerformed
+        if(rbQuantidade.isSelected()){
+            txtQuantidade.setEnabled(true);
+            txtTamanho.setEnabled(false);
+        }
+    }//GEN-LAST:event_rbQuantidadeActionPerformed
+
+    private void cbTipo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipo1ActionPerformed
+
+    private void cbTipo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipo2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipo2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -445,12 +632,12 @@ public class PedidosView extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluirItem;
     private javax.swing.JButton btnIncluirItem;
     private javax.swing.JButton btnPesquisarCliente;
+    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JComboBox<String> cbForma;
     private javax.swing.JComboBox<Object> cbSabor1;
     private javax.swing.JComboBox<Object> cbSabor2;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
+    private javax.swing.JComboBox<Object> cbTipo1;
+    private javax.swing.JComboBox<Object> cbTipo2;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
@@ -466,11 +653,14 @@ public class PedidosView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField txtAltura;
-    private javax.swing.JTextField txtLargura;
+    private javax.swing.JLabel lblForma;
+    private javax.swing.JLabel lblQuantidade;
+    private javax.swing.JRadioButton rbDimensao;
+    private javax.swing.JRadioButton rbQuantidade;
     private javax.swing.JTextField txtNomeClientePedido;
+    private javax.swing.JFormattedTextField txtQuantidade;
     private javax.swing.JTextField txtSobrenomeClientePedido;
-    private javax.swing.JTextField txtTamanho;
+    private javax.swing.JFormattedTextField txtTamanho;
     private javax.swing.JFormattedTextField txtTelefoneClientePedido;
     private javax.swing.JTextField txtTotalPedido;
     // End of variables declaration//GEN-END:variables

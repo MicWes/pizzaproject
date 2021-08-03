@@ -5,9 +5,9 @@
  */
 package com.mycompany.pizzaproject.models;
 
-import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,9 +30,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "SaborTb.findAll", query = "SELECT s FROM SaborTb s"),
     @NamedQuery(name = "SaborTb.findBySaborId", query = "SELECT s FROM SaborTb s WHERE s.saborId = :saborId"),
     @NamedQuery(name = "SaborTb.findByDescricao", query = "SELECT s FROM SaborTb s WHERE s.descricao = :descricao")})
-public class SaborTb implements Serializable {
+public class SaborTb extends Model {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -41,12 +40,11 @@ public class SaborTb implements Serializable {
     @Basic(optional = false)
     @Column(name = "descricao")
     private String descricao;
-    @ManyToMany(mappedBy = "saborTbCollection")
+    @ManyToMany(mappedBy = "saborTbCollection", cascade = CascadeType.MERGE)
     private Collection<PizzaTb> pizzaTbCollection;
     @JoinColumn(name = "tipo_id", referencedColumnName = "tipo_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = CascadeType.MERGE)
     private TipoTb tipoId;
-
     public SaborTb() {
     }
 
@@ -74,7 +72,7 @@ public class SaborTb implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
+    
     public Collection<PizzaTb> getPizzaTbCollection() {
         return pizzaTbCollection;
     }
@@ -83,12 +81,12 @@ public class SaborTb implements Serializable {
         this.pizzaTbCollection = pizzaTbCollection;
     }
 
-    public TipoTb getTipoId() {
+    public TipoTb getTipoTb() {
         return tipoId;
     }
 
-    public void setTipoId(TipoTb tipoId) {
-        this.tipoId = tipoId;
+    public void setTipoId(TipoTb tipoTb) {
+        this.tipoId = tipoTb;
     }
 
     @Override

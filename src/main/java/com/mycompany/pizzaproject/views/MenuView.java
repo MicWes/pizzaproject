@@ -33,7 +33,7 @@ public class MenuView extends javax.swing.JFrame {
     private void initComponents() {
 
         jBtnClientes = new javax.swing.JButton();
-        jBtnPedidos = new javax.swing.JButton();
+        jBtnPedido = new javax.swing.JButton();
         jBtnPrecos = new javax.swing.JButton();
         jBtnSabores = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -47,16 +47,21 @@ public class MenuView extends javax.swing.JFrame {
             }
         });
 
-        jBtnPedidos.setText("Pedidos");
-        jBtnPedidos.addActionListener(new java.awt.event.ActionListener() {
+        jBtnPedido.setText("Pedidos");
+        jBtnPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnPedidosActionPerformed(evt);
+                jBtnPedidoActionPerformed(evt);
             }
         });
 
         jBtnPrecos.setText("Preços");
 
         jBtnSabores.setText("Sabores");
+        jBtnSabores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSaboresActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -70,7 +75,7 @@ public class MenuView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBtnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtnPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                    .addComponent(jBtnPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                     .addComponent(jBtnPrecos, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                     .addComponent(jBtnSabores, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -84,7 +89,7 @@ public class MenuView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jBtnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jBtnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtnPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtnPrecos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -100,9 +105,14 @@ public class MenuView extends javax.swing.JFrame {
         new ClienteView().setVisible(true);
     }//GEN-LAST:event_jBtnClientesActionPerformed
 
-    private void jBtnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPedidosActionPerformed
+    private void jBtnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPedidoActionPerformed
          new PedidosView().setVisible(true);
-    }//GEN-LAST:event_jBtnPedidosActionPerformed
+    }//GEN-LAST:event_jBtnPedidoActionPerformed
+
+    private void jBtnSaboresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaboresActionPerformed
+        // TODO add your handling code here:
+        new SaborView().setVisible(true);
+    }//GEN-LAST:event_jBtnSaboresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -141,7 +151,7 @@ public class MenuView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnClientes;
-    private javax.swing.JButton jBtnPedidos;
+    private javax.swing.JButton jBtnPedido;
     private javax.swing.JButton jBtnPrecos;
     private javax.swing.JButton jBtnSabores;
     private javax.swing.JLabel jLabel1;

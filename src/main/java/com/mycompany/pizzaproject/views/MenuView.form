@@ -27,7 +27,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jBtnClientes" max="32767" attributes="0"/>
-                  <Component id="jBtnPedidos" alignment="0" pref="190" max="32767" attributes="0"/>
+                  <Component id="jBtnPedido" alignment="0" pref="190" max="32767" attributes="0"/>
                   <Component id="jBtnPrecos" alignment="0" pref="190" max="32767" attributes="0"/>
                   <Component id="jBtnSabores" alignment="0" pref="190" max="32767" attributes="0"/>
                   <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
@@ -44,7 +44,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jBtnClientes" min="-2" pref="38" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jBtnPedidos" min="-2" pref="38" max="-2" attributes="0"/>
+              <Component id="jBtnPedido" min="-2" pref="38" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jBtnPrecos" min="-2" pref="38" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -63,12 +63,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnClientesActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jBtnPedidos">
+    <Component class="javax.swing.JButton" name="jBtnPedido">
       <Properties>
         <Property name="text" type="java.lang.String" value="Pedidos"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnPedidosActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnPedidoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBtnPrecos">
@@ -80,6 +80,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Sabores"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnSaboresActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
