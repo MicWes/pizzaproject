@@ -130,7 +130,7 @@ public class PedidosView extends javax.swing.JFrame {
         cbTipo1 = new javax.swing.JComboBox<>();
         cbTipo2 = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel4.setText("Telefone:");
 
