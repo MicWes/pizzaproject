@@ -53,6 +53,11 @@ public class MenuView extends javax.swing.JFrame {
         jBtnPrecos.setText("Preços");
 
         jBtnSabores.setText("Sabores");
+        jBtnSabores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSaboresActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -99,6 +104,11 @@ public class MenuView extends javax.swing.JFrame {
     private void jBtnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPedidosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnPedidosActionPerformed
+
+    private void jBtnSaboresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaboresActionPerformed
+        // TODO add your handling code here:
+        new SaborView().setVisible(true);
+    }//GEN-LAST:event_jBtnSaboresActionPerformed
 
     /**
      * @param args the command line arguments

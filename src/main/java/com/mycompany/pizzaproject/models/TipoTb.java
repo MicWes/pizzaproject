@@ -5,7 +5,6 @@
  */
 package com.mycompany.pizzaproject.models;
 
-import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -30,20 +29,22 @@ import javax.persistence.Table;
     @NamedQuery(name = "TipoTb.findByTipoId", query = "SELECT t FROM TipoTb t WHERE t.tipoId = :tipoId"),
     @NamedQuery(name = "TipoTb.findByTitulo", query = "SELECT t FROM TipoTb t WHERE t.titulo = :titulo"),
     @NamedQuery(name = "TipoTb.findByPreco", query = "SELECT t FROM TipoTb t WHERE t.preco = :preco")})
-public class TipoTb implements Serializable {
+public class TipoTb extends Model {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "tipo_id")
     private Integer tipoId;
+    
     @Basic(optional = false)
     @Column(name = "titulo")
     private String titulo;
+    
     @Basic(optional = false)
     @Column(name = "preco")
     private double preco;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoId")
     private Collection<SaborTb> saborTbCollection;
 
