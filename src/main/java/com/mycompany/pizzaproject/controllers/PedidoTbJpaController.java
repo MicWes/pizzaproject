@@ -16,15 +16,16 @@ import javax.persistence.criteria.Root;
 import com.mycompany.pizzaproject.models.ClienteTb;
 import com.mycompany.pizzaproject.models.PedidoTb;
 import com.mycompany.pizzaproject.models.PizzaTb;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-/**
- *
- * @author Michael
- */
+
 public class PedidoTbJpaController implements Serializable {
 
     public PedidoTbJpaController() {
@@ -33,7 +34,7 @@ public class PedidoTbJpaController implements Serializable {
     public EntityManager getEntityManager() {
         return EntityManagerUtil.getEntityManager();
     }
-
+    
     public void create(PedidoTb pedidoTb) {
         if (pedidoTb.getPizzaTbCollection() == null) {
             pedidoTb.setPizzaTbCollection(new ArrayList<PizzaTb>());

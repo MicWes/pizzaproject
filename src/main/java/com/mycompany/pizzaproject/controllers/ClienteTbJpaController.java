@@ -198,5 +198,16 @@ public class ClienteTbJpaController implements Serializable {
             em.close();
         }
     }
+ 
+     public ClienteTb findByTelefone(String telefone) {
+        EntityManager em = getEntityManager();
+        try {
+            ClienteTb cliente = (ClienteTb)em.createQuery("SELECT c FROM ClienteTb c WHERE c.telefone = ?1").setParameter(1, telefone).getSingleResult();
+            return cliente;
+        }
+        finally {
+            em.close();
+        }
+    }
     
 }

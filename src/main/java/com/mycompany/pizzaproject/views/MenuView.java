@@ -5,6 +5,10 @@
  */
 package com.mycompany.pizzaproject.views;
 
+import com.mycompany.pizzaproject.controllers.ClienteTbJpaController;
+import com.mycompany.pizzaproject.models.ClienteTb;
+import java.util.List;
+
 /**
  *
  * @author Michael
@@ -16,7 +20,7 @@ public class MenuView extends javax.swing.JFrame {
      */
     public MenuView() {
         initComponents();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null);       
     }
 
     /**
@@ -97,7 +101,7 @@ public class MenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnClientesActionPerformed
 
     private void jBtnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPedidosActionPerformed
-        // TODO add your handling code here:
+         new PedidosView().setVisible(true);
     }//GEN-LAST:event_jBtnPedidosActionPerformed
 
     /**
