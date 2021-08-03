@@ -5,7 +5,7 @@
  */
 package com.mycompany.pizzaproject;
 
-import com.mycompany.pizzaproject.controllers.TipoTbJpaController;
+import com.mycompany.pizzaproject.controllers.SaborTbJpaController;
 
 /**
  *
@@ -19,7 +19,7 @@ public class PizzaMain {
     public static void main(String[] args) {
         // TODO code application logic here
 //        new MenuView().setVisible(true);
-           new TipoTbJpaController();
+           new SaborTbJpaController();
     }
     
 }

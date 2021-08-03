@@ -7,6 +7,7 @@ package com.mycompany.pizzaproject.views;
 
 import com.mycompany.pizzaproject.controllers.SaborTbJpaController;
 import com.mycompany.pizzaproject.models.SaborTb;
+import com.mycompany.pizzaproject.models.TipoTb;
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,8 @@ public class SaborView extends View<SaborTb, SaborTbJpaController, SaborTabela> 
         this.model = new SaborTabela();
     }
     
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,6 +42,9 @@ public class SaborView extends View<SaborTb, SaborTbJpaController, SaborTabela> 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         botoesCrud1 = new com.mycompany.pizzaproject.views.BotoesCrud();
+        jLabel1 = new javax.swing.JLabel();
+        jDescription = new javax.swing.JTextField();
+        tipoInput1 = new com.mycompany.pizzaproject.views.TipoInput();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +76,9 @@ public class SaborView extends View<SaborTb, SaborTbJpaController, SaborTabela> 
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel1.setText("Descrição");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,7 +90,14 @@ public class SaborView extends View<SaborTb, SaborTbJpaController, SaborTabela> 
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botoesCrud1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(botoesCrud1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tipoInput1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -97,13 +113,21 @@ public class SaborView extends View<SaborTb, SaborTbJpaController, SaborTabela> 
                     .addComponent(botoesCrud1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(tipoInput1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(59, 59, 59)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(239, Short.MAX_VALUE)))
+                    .addContainerGap(297, Short.MAX_VALUE)))
         );
 
         pack();
@@ -146,10 +170,13 @@ public class SaborView extends View<SaborTb, SaborTbJpaController, SaborTabela> 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.mycompany.pizzaproject.views.BotoesCrud botoesCrud1;
+    private javax.swing.JTextField jDescription;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
+    private com.mycompany.pizzaproject.views.TipoInput tipoInput1;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -163,12 +190,13 @@ public class SaborView extends View<SaborTb, SaborTbJpaController, SaborTabela> 
                 setForm(sabor);
             }
         });
-
+        
         java.awt.EventQueue.invokeLater(() ->  this.setVisible(true));
     }
 
     @Override
     public void list(List<SaborTb> models) {
+        this.element = null;
         this.model.limpaTabela();
         models.forEach(sabor -> {
             this.model.insert(sabor);
@@ -177,8 +205,16 @@ public class SaborView extends View<SaborTb, SaborTbJpaController, SaborTabela> 
 
     @Override
     public SaborTb getForm() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return null;
+        try {
+            TipoTb tipo = tipoInput1.getTipoSelected();
+            String description = jDescription.getText();
+            SaborTb sabor = new SaborTb();
+            sabor.setDescricao(description);
+            sabor.setTipoId(tipo);
+            return sabor;
+        } catch (Exception ex) {
+            return null;
+        }
     }
     
     @Override
@@ -197,10 +233,10 @@ public class SaborView extends View<SaborTb, SaborTbJpaController, SaborTabela> 
     }
     
     @Override
-    public void setForm(SaborTb tipo) {
-        this.element = tipo;
-//        jPrice.setText( Double.toString(tipo.getPreco()));
-//        jTitle.setText(tipo.getTitulo());
+    public void setForm(SaborTb sabor) {
+        this.element = sabor;
+        this.jDescription.setText(sabor.getDescricao());
+        this.tipoInput1.setTipoSelected(sabor.getTipoTb());
     }
 
     @Override
@@ -220,6 +256,7 @@ public class SaborView extends View<SaborTb, SaborTbJpaController, SaborTabela> 
 
     @Override
     public void deleteModel(List<SaborTb> sabores) {
+        this.element = null;
         this.model.removeModels(sabores);
     }
 

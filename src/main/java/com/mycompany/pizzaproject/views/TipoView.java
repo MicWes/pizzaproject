@@ -288,6 +288,7 @@ public class TipoView extends View<TipoTb, TipoTbJpaController, TipoTabela> {
 
     @Override
     public void deleteModel(List<TipoTb> tipos) {
+        this.element = null;
         this.model.removeModels(tipos);
     }
 

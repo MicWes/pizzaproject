@@ -27,6 +27,10 @@ public class TipoTbJpaController extends Controller<TipoDao, TipoView> {
         this.dao = new TipoDao();
         super.initController();
     }
+    
+    public TipoTbJpaController(Boolean view) {
+        this.dao = new TipoDao();
+    }
 
     @Override
     public void list() {
@@ -35,6 +39,16 @@ public class TipoTbJpaController extends Controller<TipoDao, TipoView> {
             this.view.list(tipos);
         } catch(Exception ex) {
             this.view.showError("Erro ao listar os tipos");
+        }
+    }
+    
+    public List<TipoTb> listForInput() {
+        List<TipoTb> tipos = null;
+        try {
+           tipos = this.dao.list(true, -1, -1);
+           return tipos;
+        } catch(Exception ex) {
+            return tipos;
         }
     }
 

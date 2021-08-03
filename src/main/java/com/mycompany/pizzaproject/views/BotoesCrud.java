@@ -6,8 +6,6 @@
 package com.mycompany.pizzaproject.views;
 
 import com.mycompany.pizzaproject.controllers.Controller;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  *
