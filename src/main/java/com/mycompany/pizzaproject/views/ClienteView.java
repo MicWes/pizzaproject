@@ -7,11 +7,8 @@ package com.mycompany.pizzaproject.views;
 
 import com.mycompany.pizzaproject.controllers.ClienteTbJpaController;
 import com.mycompany.pizzaproject.models.ClienteTb;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -23,21 +20,21 @@ public class ClienteView extends javax.swing.JFrame {
      * Creates new form ClienteView
      */
     public ClienteView() {
+        //ListTable();
         initComponents();
         setLocationRelativeTo(null);
         
         
     }
-
-    public void listTable(){
+    
+    public static void ListTable(){
         ClienteTbJpaController clienteController = new ClienteTbJpaController();
         
         List<ClienteTb> clientesList = clienteController.findClienteTbEntities();
         
-        for (ClienteTb cliente : clientesList){
-            //tb_clientes
-        }
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,7 +64,7 @@ public class ClienteView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "Sobrenome", "Telefone", "Função"
+                "Id", "Nome", "Sobrenome", "Telefone", "Opções"
             }
         ) {
             Class[] types = new Class [] {
@@ -90,6 +87,11 @@ public class ClienteView extends javax.swing.JFrame {
         jLabel2.setText("Sobrenome");
 
         btn_filter.setText("Filtrar");
+        btn_filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_filterActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Telefone");
 
@@ -152,10 +154,47 @@ public class ClienteView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private List<ClienteTb> lista = new ArrayList();
+    
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        ClienteTb cliente = lista.get(rowIndex);
+        switch (columnIndex) {
+            case 0: return cliente.getClienteId();
+            case 1: return cliente.getNome();
+            case 2: return cliente.getSobrenome();
+            case 3: return cliente.getTelefone();
+            default : return null;
+        }
+    }
+
+    public void setValueAt(Object value, int row, int col) {
+        ClienteTb cliente = lista.get(row);
+        switch (col) {
+            case 0:
+                cliente.setClienteId((Integer) value);
+                break;
+            case 1:
+                cliente.setNome((String) value);
+                break;
+            case 2:
+                cliente.setSobrenome((String) value);
+                break;
+            case 3:
+                cliente.setTelefone((String) value);
+                break;
+            default:
+        }
+    }
+    
     private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newActionPerformed
         // TODO add your handling code here:
         new NovoClienteView().setVisible(true);
     }//GEN-LAST:event_btn_newActionPerformed
+
+    private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filterActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btn_filterActionPerformed
 
     /**
      * @param args the command line arguments

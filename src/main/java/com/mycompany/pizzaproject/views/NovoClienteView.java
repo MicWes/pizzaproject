@@ -6,9 +6,7 @@
 package com.mycompany.pizzaproject.views;
 
 import com.mycompany.pizzaproject.controllers.ClienteTbJpaController;
-import com.mycompany.pizzaproject.dao.EntityManagerUtil;
 import com.mycompany.pizzaproject.models.ClienteTb;
-import javax.persistence.EntityManager;
 
 /**
  *

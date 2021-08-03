@@ -97,7 +97,7 @@
                 <Column editable="true" title="Nome" type="java.lang.String"/>
                 <Column editable="true" title="Sobrenome" type="java.lang.String"/>
                 <Column editable="true" title="Telefone" type="java.lang.String"/>
-                <Column editable="true" title="Fun&#xe7;&#xe3;o" type="java.lang.Object"/>
+                <Column editable="true" title="Op&#xe7;&#xf5;es" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -167,6 +167,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Filtrar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_filterActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
