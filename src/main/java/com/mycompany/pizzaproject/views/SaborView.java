@@ -23,6 +23,7 @@ public class SaborView extends View<SaborTb, SaborTbJpaController, SaborTabela> 
     public SaborView() {
         initComponents();
         this.model = new SaborTabela();
+        setLocationRelativeTo(null);
     }
     
     /**
@@ -40,7 +41,7 @@ public class SaborView extends View<SaborTb, SaborTbJpaController, SaborTabela> 
         jTable1 = new javax.swing.JTable();
         botoesCrud1 = new com.mycompany.pizzaproject.views.BotoesCrud();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("Sabores");

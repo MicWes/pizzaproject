@@ -5,6 +5,9 @@
  */
 package com.mycompany.pizzaproject.views;
 
+import com.mycompany.pizzaproject.controllers.SaborTbJpaController;
+import com.mycompany.pizzaproject.controllers.TipoTbJpaController;
+
 /**
  *
  * @author Michael
@@ -51,6 +54,11 @@ public class MenuView extends javax.swing.JFrame {
         });
 
         jBtnPrecos.setText("Preços");
+        jBtnPrecos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnPrecosActionPerformed(evt);
+            }
+        });
 
         jBtnSabores.setText("Sabores");
         jBtnSabores.addActionListener(new java.awt.event.ActionListener() {
@@ -107,8 +115,13 @@ public class MenuView extends javax.swing.JFrame {
 
     private void jBtnSaboresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaboresActionPerformed
         // TODO add your handling code here:
-        new SaborView().setVisible(true);
+        new SaborTbJpaController();
     }//GEN-LAST:event_jBtnSaboresActionPerformed
+
+    private void jBtnPrecosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPrecosActionPerformed
+        // TODO add your handling code here:
+        new TipoTbJpaController();
+    }//GEN-LAST:event_jBtnPrecosActionPerformed
 
     /**
      * @param args the command line arguments
