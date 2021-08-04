@@ -201,7 +201,7 @@ public class ClienteView extends View<ClienteTb, ClienteTbJpaController, Cliente
 
     @Override
     public void setController(ClienteTbJpaController controller) {
-        //this.botoesCrud1.setController(controller);
+        this.botoesCrud1.setController(controller);
     }
 
     @Override
