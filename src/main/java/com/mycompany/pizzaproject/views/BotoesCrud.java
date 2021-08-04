@@ -79,7 +79,6 @@ public class BotoesCrud extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void setController(Controller controller) {
-      
         this.botaoCriar.addActionListener(e -> controller.create());
         this.botaoAtualizar.addActionListener(e -> controller.edit());
         this.botaoExcluir.addActionListener(e -> controller.destroy());

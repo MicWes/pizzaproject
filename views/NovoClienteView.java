@@ -6,7 +6,9 @@
 package com.mycompany.pizzaproject.views;
 
 import com.mycompany.pizzaproject.controllers.ClienteTbJpaController;
+import com.mycompany.pizzaproject.dao.EntityManagerUtil;
 import com.mycompany.pizzaproject.models.ClienteTb;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -124,7 +126,7 @@ public class NovoClienteView extends javax.swing.JFrame {
 
         ClienteTbJpaController clienteController = new ClienteTbJpaController();
 
-        clienteController.create();
+        clienteController.create(clienteTb);
         
         dispose();
     }

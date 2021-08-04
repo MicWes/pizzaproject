@@ -38,7 +38,7 @@ public class TipoTbJpaController extends Controller<TipoDao, TipoView> {
             List<TipoTb> tipos = this.dao.list(true, -1, -1);
             this.view.list(tipos);
         } catch(Exception ex) {
-            this.view.showError("Erro ao listar os tipos");
+            this.view.showError("Erro ao listar os tipos.");
         }
     }
     
@@ -64,7 +64,7 @@ public class TipoTbJpaController extends Controller<TipoDao, TipoView> {
             this.dao.create(tipo);
             this.view.insertModel(tipo);
         } catch (Exception ex) {
-            this.view.showError("Erro ao inserir um novo tipo");
+            this.view.showError("Erro ao inserir um novo tipo.");
         }
     }
 

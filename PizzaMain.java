@@ -5,6 +5,7 @@
  */
 package com.mycompany.pizzaproject;
 
+import com.mycompany.pizzaproject.dao.EntityManagerUtil;
 import com.mycompany.pizzaproject.views.MenuView;
 
 /**
@@ -17,6 +18,7 @@ public class PizzaMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        // TODO code application logic here
         new MenuView().setVisible(true);
     }
     

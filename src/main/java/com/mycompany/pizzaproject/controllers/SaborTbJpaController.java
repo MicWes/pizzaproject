@@ -59,7 +59,7 @@ public class SaborTbJpaController extends Controller<SaborDao, SaborView> {
        try{
             SaborTb sabor = this.view.getForm(true);
             if(sabor==null){
-                this.view.showInfo("Selecione um contato na tabela para atualizar.");
+                this.view.showInfo("Selecione um sabor na tabela para atualizar.");
             } else {
                 this.dao.update(sabor);
                 this.view.updateModel(sabor);
