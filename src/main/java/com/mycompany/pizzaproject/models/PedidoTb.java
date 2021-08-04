@@ -45,7 +45,7 @@ public class PedidoTb extends Model {
     @Column(name = "status")
     private String status;
     @JoinColumn(name = "cliente_id", referencedColumnName = "cliente_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     private ClienteTb clienteId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoId")
     private Collection<PizzaTb> pizzaTbCollection;

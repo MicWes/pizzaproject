@@ -8,6 +8,7 @@ package com.mycompany.pizzaproject.models;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -53,10 +54,10 @@ public class PizzaTb implements Serializable {
     @JoinTable(name = "pizza_sabor", joinColumns = {
         @JoinColumn(name = "pizza_id", referencedColumnName = "pizza_id")}, inverseJoinColumns = {
         @JoinColumn(name = "sabor_id", referencedColumnName = "sabor_id")})
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE)
     private Collection<SaborTb> saborTbCollection;
     @JoinColumn(name = "pedido_id", referencedColumnName = "pedido_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     private PedidoTb pedidoId;
 
     public PizzaTb() {
