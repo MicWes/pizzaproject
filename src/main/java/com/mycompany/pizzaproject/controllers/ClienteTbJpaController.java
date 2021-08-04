@@ -29,6 +29,10 @@ public class ClienteTbJpaController extends Controller<ClienteDao, ClienteView> 
         this.dao = new ClienteDao();
         super.initController();
     }
+    
+    public ClienteTbJpaController(Boolean withoutView) {
+        this.dao = new ClienteDao();
+    }
 
     @Override
     public void create() {

@@ -13,15 +13,17 @@ import java.io.Serializable;
  *
  * @author mathe
  */
-public abstract class Controller<T extends Dao, V extends View> implements Serializable {
+public abstract class Controller<T extends Dao, V> implements Serializable {
     
     public V view;
     public T dao;
     
     void initController(){
-        this.view.setController(this);
-        this.view.initView();
-        
+        View check = (View) this.view;
+        if(View.class.isAssignableFrom(check.getClass())) {
+            check.setController(this);
+            check.initView();
+        }
     }
      
     public abstract void create();

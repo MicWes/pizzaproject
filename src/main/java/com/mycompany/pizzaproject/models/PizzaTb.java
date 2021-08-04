@@ -5,7 +5,6 @@
  */
 package com.mycompany.pizzaproject.models;
 
-import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -34,9 +33,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "PizzaTb.findByForma", query = "SELECT p FROM PizzaTb p WHERE p.forma = :forma"),
     @NamedQuery(name = "PizzaTb.findByTamanho", query = "SELECT p FROM PizzaTb p WHERE p.tamanho = :tamanho"),
     @NamedQuery(name = "PizzaTb.findByTotalPizza", query = "SELECT p FROM PizzaTb p WHERE p.totalPizza = :totalPizza")})
-public class PizzaTb implements Serializable {
+public class PizzaTb extends Model {
 
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)

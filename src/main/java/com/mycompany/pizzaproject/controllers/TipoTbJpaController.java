@@ -28,7 +28,7 @@ public class TipoTbJpaController extends Controller<TipoDao, TipoView> {
         super.initController();
     }
     
-    public TipoTbJpaController(Boolean view) {
+    public TipoTbJpaController(Boolean withouView) {
         this.dao = new TipoDao();
     }
 
