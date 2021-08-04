@@ -109,7 +109,7 @@ public class MenuView extends javax.swing.JFrame {
 
     private void jBtnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClientesActionPerformed
         // TODO add your handling code here:
-        new ClienteView().setVisible(true);
+        new ClienteTbJpaController();
     }//GEN-LAST:event_jBtnClientesActionPerformed
 
     private void jBtnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPedidoActionPerformed

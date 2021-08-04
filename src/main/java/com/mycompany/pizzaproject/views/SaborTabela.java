@@ -38,13 +38,13 @@ public class SaborTabela extends TableModel<SaborTb>{
 
     @Override
     public void setValueAt(Object value, int row, int col) {
-        SaborTb customer = lista.get(row);
+        SaborTb sabor = lista.get(row);
         switch (col) {
             case 0:
-                customer.setSaborId((Integer) value); //if column 0 (code)
+                sabor.setSaborId((Integer) value); //if column 0 (code)
                 break;
             case 1:
-                customer.setDescricao((String) value);
+                sabor.setDescricao((String) value);
                 break;
             case 2:
 //                customer.setTipoId();

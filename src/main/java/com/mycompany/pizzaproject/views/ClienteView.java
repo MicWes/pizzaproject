@@ -7,6 +7,7 @@ package com.mycompany.pizzaproject.views;
 
 import com.mycompany.pizzaproject.controllers.ClienteTbJpaController;
 import com.mycompany.pizzaproject.models.ClienteTb;
+import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,25 +15,16 @@ import java.util.List;
  *
  * @author Michael
  */
-public class ClienteView extends javax.swing.JFrame {
+public class ClienteView extends View<ClienteTb, ClienteTbJpaController, ClienteTabela> {
 
     /**
      * Creates new form ClienteView
      */
     public ClienteView() {
-        //ListTable();
         initComponents();
+        this.model = new ClienteTabela();
+        this.element = null;
         setLocationRelativeTo(null);
-        
-        
-    }
-    
-    public static void ListTable(){
-        ClienteTbJpaController clienteController = new ClienteTbJpaController();
-        
-        List<ClienteTb> clientesList = clienteController.findClienteTbEntities();
-        
-
     }
 
     /**
@@ -44,40 +36,20 @@ public class ClienteView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        javax.swing.JTable tb_clientes = new javax.swing.JTable();
         txField_sobrenome = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btn_filter = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txField_telefone = new javax.swing.JTextField();
-        btn_new = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        botoesCrud1 = new com.mycompany.pizzaproject.views.BotoesCrud();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setLocation(new java.awt.Point(0, 0));
-
-        tb_clientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Id", "Nome", "Sobrenome", "Telefone", "Opções"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tb_clientes.setName(""); // NOI18N
-        jScrollPane1.setViewportView(tb_clientes);
-        tb_clientes.getAccessibleContext().setAccessibleName("tbClientes");
 
         txField_sobrenome.setText("sobrenome");
 
@@ -97,27 +69,46 @@ public class ClienteView extends javax.swing.JFrame {
 
         txField_telefone.setText("telefone");
 
-        btn_new.setText("Novo");
-        btn_new.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_newActionPerformed(evt);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Descrição", "Tipo"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_new))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 244, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                        .addComponent(botoesCrud1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txField_sobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -127,70 +118,34 @@ public class ClienteView extends javax.swing.JFrame {
                         .addComponent(txField_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_filter))
-                    .addComponent(jSeparator1))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(btn_new))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel1))
+                    .addComponent(botoesCrud1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_filter)
                     .addComponent(txField_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(txField_sobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private List<ClienteTb> lista = new ArrayList();
     
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        ClienteTb cliente = lista.get(rowIndex);
-        switch (columnIndex) {
-            case 0: return cliente.getClienteId();
-            case 1: return cliente.getNome();
-            case 2: return cliente.getSobrenome();
-            case 3: return cliente.getTelefone();
-            default : return null;
-        }
-    }
-
-    public void setValueAt(Object value, int row, int col) {
-        ClienteTb cliente = lista.get(row);
-        switch (col) {
-            case 0:
-                cliente.setClienteId((Integer) value);
-                break;
-            case 1:
-                cliente.setNome((String) value);
-                break;
-            case 2:
-                cliente.setSobrenome((String) value);
-                break;
-            case 3:
-                cliente.setTelefone((String) value);
-                break;
-            default:
-        }
-    }
-    
-    private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newActionPerformed
-        // TODO add your handling code here:
-        new NovoClienteView().setVisible(true);
-    }//GEN-LAST:event_btn_newActionPerformed
-
     private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filterActionPerformed
         // TODO add your handling code here:
         
@@ -232,14 +187,101 @@ public class ClienteView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.mycompany.pizzaproject.views.BotoesCrud botoesCrud1;
     private javax.swing.JButton btn_filter;
-    private javax.swing.JButton btn_new;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField txField_sobrenome;
     private javax.swing.JTextField txField_telefone;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setController(ClienteTbJpaController controller) {
+        //this.botoesCrud1.setController(controller);
+    }
+
+    @Override
+    public void initView() {
+        jTable1.setModel(this.model);
+        jTable1.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                linhaClicadaParaAtualizacao = jTable1.rowAtPoint(evt.getPoint());
+                ClienteTb cliente = model.getModel(linhaClicadaParaAtualizacao);
+                setForm(cliente);
+            }
+        });
+
+        java.awt.EventQueue.invokeLater(() ->  this.setVisible(true));
+    }
+
+    @Override
+    public void list(List<ClienteTb> models) {
+        this.model.limpaTabela();
+        models.forEach(cliente -> {
+            this.model.insert(cliente);
+        });
+    }
+
+    @Override
+    public ClienteTb getForm() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
+    }
+
+    @Override
+    public ClienteTb getForm(Boolean update) {
+        ClienteTb cliente = getForm();
+        if (update) {
+            if (this.element == null)
+                return null;
+            this.element.setClienteId(cliente.getClienteId());
+            this.element.setNome(cliente.getNome());
+            this.element.setSobrenome(cliente.getSobrenome());
+            this.element.setTelefone(cliente.getTelefone());
+            
+            return this.element;
+        }
+        return cliente;
+    }
+
+    @Override
+    public void setForm(ClienteTb cliente) {
+        this.element = cliente;
+    }
+
+    @Override
+    public ClienteTb getModel() {
+        return this.model.getModel(this.linhaClicadaParaAtualizacao);
+    }
+
+    @Override
+    public List<ClienteTb> getModels() {
+        int[] linhasSelecionadas = jTable1.getSelectedRows();
+        List<ClienteTb> listaExcluir = new ArrayList();
+        for (int i = 0; i < linhasSelecionadas.length; i++) {
+            ClienteTb cliente = this.model.getModel(linhasSelecionadas[i]);
+            listaExcluir.add(cliente);
+        }
+        return listaExcluir;
+    }
+
+    @Override
+    public void updateModel(ClienteTb model) {
+        this.model.fireTableRowsUpdated(this.linhaClicadaParaAtualizacao, this.linhaClicadaParaAtualizacao);
+    }
+
+    @Override
+    public void insertModel(ClienteTb cliente) {
+        this.model.insert(cliente);
+    }
+
+    @Override
+    public void deleteModel(List<ClienteTb> clientes) {
+        this.model.removeModels(clientes);
+    }
 }

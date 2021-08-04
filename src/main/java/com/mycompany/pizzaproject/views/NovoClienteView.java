@@ -124,7 +124,7 @@ public class NovoClienteView extends javax.swing.JFrame {
 
         ClienteTbJpaController clienteController = new ClienteTbJpaController();
 
-        clienteController.create(clienteTb);
+        clienteController.create();
         
         dispose();
     }
