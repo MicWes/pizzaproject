@@ -56,8 +56,8 @@ public class SaborTbJpaController extends Controller<SaborDao, SaborView> {
 
     @Override
     public void edit() {
-        try{
-            SaborTb sabor = this.view.getModel();
+       try{
+            SaborTb sabor = this.view.getForm(true);
             if(sabor==null){
                 this.view.showInfo("Selecione um sabor na tabela para atualizar.");
             } else {
