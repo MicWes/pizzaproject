@@ -10,6 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,10 +53,10 @@ public class PizzaTb extends Model {
     @JoinTable(name = "pizza_sabor", joinColumns = {
         @JoinColumn(name = "pizza_id", referencedColumnName = "pizza_id")}, inverseJoinColumns = {
         @JoinColumn(name = "sabor_id", referencedColumnName = "sabor_id")})
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Collection<SaborTb> saborTbCollection;
     @JoinColumn(name = "pedido_id", referencedColumnName = "pedido_id")
-    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private PedidoTb pedidoId;
 
     public PizzaTb() {

@@ -6,8 +6,7 @@
 package com.mycompany.pizzaproject.views;
 
 import com.mycompany.pizzaproject.controllers.ClienteTbJpaController;
-import com.mycompany.pizzaproject.models.ClienteTb;
-import java.util.List;
+import com.mycompany.pizzaproject.controllers.PedidoTbJpaController;
 import com.mycompany.pizzaproject.controllers.SaborTbJpaController;
 import com.mycompany.pizzaproject.controllers.TipoTbJpaController;
 
@@ -113,7 +112,7 @@ public class MenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnClientesActionPerformed
 
     private void jBtnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPedidoActionPerformed
-         new PedidoForm().setVisible(true);
+         new PedidoTbJpaController();
     }//GEN-LAST:event_jBtnPedidoActionPerformed
 
     private void jBtnSaboresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaboresActionPerformed
