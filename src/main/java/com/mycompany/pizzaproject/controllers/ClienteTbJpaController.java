@@ -48,7 +48,7 @@ public class ClienteTbJpaController extends Controller<ClienteDao, ClienteView> 
     @Override
     public void edit() {
         try{
-            ClienteTb cliente = this.view.getModel();
+            ClienteTb cliente = this.view.getForm(true);
             if(cliente==null){
                 this.view.showInfo("Selecione um cliente na tabela para atualizar.");
             } else {

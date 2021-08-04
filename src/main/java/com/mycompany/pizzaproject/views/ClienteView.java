@@ -51,7 +51,7 @@ public class ClienteView extends View<ClienteTb, ClienteTbJpaController, Cliente
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTxFieldTelefone = new javax.swing.JFormattedTextField();
-        jTxFieldTelefone1 = new javax.swing.JFormattedTextField();
+        txFilter_telefone = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
@@ -117,7 +117,7 @@ public class ClienteView extends View<ClienteTb, ClienteTbJpaController, Cliente
         jTxFieldTelefone.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         try {
-            jTxFieldTelefone1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+            txFilter_telefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -141,7 +141,7 @@ public class ClienteView extends View<ClienteTb, ClienteTbJpaController, Cliente
                         .addGap(24, 24, 24)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTxFieldTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txFilter_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_filter))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -175,7 +175,7 @@ public class ClienteView extends View<ClienteTb, ClienteTbJpaController, Cliente
                     .addComponent(jLabel3)
                     .addComponent(txFilter_sobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jTxFieldTelefone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txFilter_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -248,8 +248,8 @@ public class ClienteView extends View<ClienteTb, ClienteTbJpaController, Cliente
     private javax.swing.JTextField jTxFieldNome;
     private javax.swing.JTextField jTxFieldSobrenome;
     private javax.swing.JFormattedTextField jTxFieldTelefone;
-    private javax.swing.JFormattedTextField jTxFieldTelefone1;
     private javax.swing.JTextField txFilter_sobrenome;
+    private javax.swing.JFormattedTextField txFilter_telefone;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -305,7 +305,6 @@ public class ClienteView extends View<ClienteTb, ClienteTbJpaController, Cliente
         if (update) {
             if (this.element == null)
                 return null;
-            this.element.setClienteId(cliente.getClienteId());
             this.element.setNome(cliente.getNome());
             this.element.setSobrenome(cliente.getSobrenome());
             this.element.setTelefone(cliente.getTelefone());
