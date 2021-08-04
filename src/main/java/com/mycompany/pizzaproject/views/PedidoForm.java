@@ -9,6 +9,7 @@ import com.mycompany.pizzaproject.controllers.ClienteTbJpaController;
 import com.mycompany.pizzaproject.controllers.PedidoTbJpaController;
 import com.mycompany.pizzaproject.models.ClienteTb;
 import com.mycompany.pizzaproject.models.PedidoTb;
+import javax.swing.JOptionPane;
 /**
  *
  * @author gusta
@@ -23,20 +24,26 @@ public class PedidoForm extends javax.swing.JFrame {
     public PedidoForm() {
         initComponents();
         this.clienteController = new ClienteTbJpaController(true);
-        this.controller = new PedidoTbJpaController();
+        this.controller = new PedidoTbJpaController(true);
         this.clienteTb = null;
         this.pedido = null;
         pizzaView1.setVisible(false);
+        java.awt.EventQueue.invokeLater(() ->  this.setVisible(true));
     }
     
     public PedidoForm(PedidoTb pedido) {
         initComponents();
-        this.clienteTb = pedido.getClienteId();
         this.pedido = pedido;
+        this.clienteTb = pedido.getClienteId();
         pizzaView1.getController().setPedido(pedido);
-        pizzaView1.getController().list();
         btnStartOrder.setVisible(false);
         btnPesquisarCliente.setVisible(false);
+        txtTelefoneClientePedido.setEditable(false);
+        java.awt.EventQueue.invokeLater(() ->  this.setVisible(true));
+    }
+    
+    private void showError(String text) {
+        JOptionPane.showMessageDialog(null, text + "\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
     }
      
     /**
@@ -172,10 +179,14 @@ public class PedidoForm extends javax.swing.JFrame {
 
    
     private void btnPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClienteActionPerformed
-        clienteTb = this.clienteController.findByTelefone(txtTelefoneClientePedido.getValue().toString());
-        txtTelefoneClientePedido.setText(clienteTb.getTelefone()); 
-        txtNomeClientePedido.setText(clienteTb.getNome());
-        txtSobrenomeClientePedido.setText(clienteTb.getSobrenome());
+        try {
+            clienteTb = this.clienteController.findByTelefone(txtTelefoneClientePedido.getValue().toString());
+            txtTelefoneClientePedido.setText(clienteTb.getTelefone()); 
+            txtNomeClientePedido.setText(clienteTb.getNome());
+            txtSobrenomeClientePedido.setText(clienteTb.getSobrenome());
+        } catch (Exception ex) {
+            showError("Cliente não localizado");
+        }
         
     }//GEN-LAST:event_btnPesquisarClienteActionPerformed
 
@@ -185,12 +196,16 @@ public class PedidoForm extends javax.swing.JFrame {
             this.pedido.setClienteId(clienteTb);
             this.pedido.setStatus("Criando");
             this.pedido.setTotalPedido(0.00);
-            this.controller.create(pedido);
-            btnStartOrder.setVisible(false);
-            btnPesquisarCliente.setVisible(false);
-            pizzaView1.setVisible(true);
-            pizzaView1.getController().setPedido(pedido);
-            pizzaView1.getController().list();
+            this.pedido = this.controller.save(pedido);
+            if (this.pedido != null) {
+                txtTelefoneClientePedido.setEditable(false);
+                btnStartOrder.setVisible(false);
+                btnPesquisarCliente.setVisible(false);
+                pizzaView1.setVisible(true);
+                pizzaView1.getController().setPedido(pedido);
+            }
+        } else {
+            showError("Por favor, selecione um cliente");
         }
     }//GEN-LAST:event_btnStartOrderActionPerformed
 

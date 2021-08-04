@@ -12,7 +12,6 @@ import com.mycompany.pizzaproject.models.SaborTb;
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -24,6 +23,8 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
 
     private PizzaTbJpaController controller;
     private List<SaborTb> sabores;
+    private SaborTb sabor1;
+    private SaborTb sabor2;
 
     public PizzaView() {
         initComponents();
@@ -32,6 +33,7 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
         txtTamanho.setEnabled(true);
         txtQuantidade.setEnabled(false);
         this.controller = new PizzaTbJpaController(this);
+        sabor1 = sabor2 = null;
         initView();
     }
 
@@ -67,6 +69,7 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
         txtQuantidade = new javax.swing.JFormattedTextField();
         rbDimensao = new javax.swing.JRadioButton();
         rbQuantidade = new javax.swing.JRadioButton();
+        btnList = new javax.swing.JButton();
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setText("Item de Pedido");
@@ -146,7 +149,13 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel14.setText("Total do Pedido:");
 
+        txtTotalPedido.setEditable(false);
         txtTotalPedido.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtTotalPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalPedidoActionPerformed(evt);
+            }
+        });
 
         jLabel17.setText("Sabor 2:");
 
@@ -157,6 +166,11 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
         });
 
         txtTamanho.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        txtTamanho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTamanhoActionPerformed(evt);
+            }
+        });
 
         lblQuantidade.setText("Quantidade (cm²):");
         lblQuantidade.setToolTipText("");
@@ -176,6 +190,13 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
         rbQuantidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbQuantidadeActionPerformed(evt);
+            }
+        });
+
+        btnList.setText("Listar resumo");
+        btnList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListActionPerformed(evt);
             }
         });
 
@@ -216,7 +237,7 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(rbQuantidade))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(cbSabor1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(cbSabor2, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -232,7 +253,9 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
                                                 .addComponent(txtTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(16, 16, 16))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnList)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnAlterarItem)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnExcluirItem)
@@ -266,7 +289,8 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnIncluirItem)
                             .addComponent(btnExcluirItem)
-                            .addComponent(btnAlterarItem))
+                            .addComponent(btnAlterarItem)
+                            .addComponent(btnList))
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
@@ -331,7 +355,12 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
     }//GEN-LAST:event_cbFormaActionPerformed
 
     private void cbSabor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSabor1ActionPerformed
-        // TODO add your handling code here:
+        int index = cbSabor1.getSelectedIndex();
+        if(index > 0){
+            sabor1 = sabores.get(index-1);
+        } else {
+            sabor1 = null;
+        }
     }//GEN-LAST:event_cbSabor1ActionPerformed
 
     private void btnAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarItemActionPerformed
@@ -347,7 +376,12 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
     }//GEN-LAST:event_btnIncluirItemActionPerformed
 
     private void cbSabor2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSabor2ActionPerformed
-        // TODO add your handling code here:
+        int index = cbSabor2.getSelectedIndex();
+        if (index > 0) {
+            sabor2 = sabores.get(index-1);
+        } else {
+            sabor2 = null;
+        }
     }//GEN-LAST:event_cbSabor2ActionPerformed
 
     private void rbDimensaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbDimensaoActionPerformed
@@ -364,11 +398,24 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
         }
     }//GEN-LAST:event_rbQuantidadeActionPerformed
 
+    private void txtTotalPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalPedidoActionPerformed
+
+    private void txtTamanhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTamanhoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTamanhoActionPerformed
+
+    private void btnListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListActionPerformed
+        this.controller.list();
+    }//GEN-LAST:event_btnListActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarItem;
     private javax.swing.JButton btnExcluirItem;
     private javax.swing.JButton btnIncluirItem;
+    private javax.swing.JButton btnList;
     private javax.swing.JComboBox<String> cbForma;
     private javax.swing.JComboBox<Object> cbSabor1;
     private javax.swing.JComboBox<Object> cbSabor2;
@@ -392,7 +439,7 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
     // End of variables declaration//GEN-END:variables
 
     private void preencheComboSabores(){
-        PedidoTbJpaController pedidoController = new PedidoTbJpaController();
+        PedidoTbJpaController pedidoController = new PedidoTbJpaController(true);
         this.sabores = pedidoController.findSaborTbEntities();
          cbSabor1.addItem("");
          cbSabor2.addItem("");
@@ -437,13 +484,12 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
 
             public void calculaArea() {
                 if(rbDimensao.isSelected()){
-                    PedidoTbJpaController pedidoController = new PedidoTbJpaController();
                     String formaSelecionada = cbForma.getSelectedItem().toString();
                     if(txtTamanho.getText().equals(""))
                         return;
 
                     Double tamanho = Double.parseDouble(txtTamanho.getText().replace(",", "."));
-                    txtQuantidade.setText(String.format("%.2f",pedidoController.calculaAreaPizza(formaSelecionada, tamanho)));
+                    txtQuantidade.setText(String.format("%.2f",controller.calculaAreaPizza(formaSelecionada, tamanho)));
                 }
             }
         });   
@@ -460,13 +506,12 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
 
             public void calculaLadoRaio() {
                 if(rbQuantidade.isSelected()){
-                    PedidoTbJpaController pedidoController = new PedidoTbJpaController();
                     String formaSelecionada = cbForma.getSelectedItem().toString();
                     if(txtQuantidade.getText().equals(""))
                         return;
 
                     Double area = Double.parseDouble(txtQuantidade.getText().replace(",", "."));
-                    txtTamanho.setText(String.format("%.2f",pedidoController.calculaDimensaoPizza(formaSelecionada, area)));
+                    txtTamanho.setText(String.format("%.2f",controller.calculaDimensaoPizza(formaSelecionada, area)));
                 }
             }
         });
@@ -485,12 +530,17 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
     public PizzaTb getForm() {
         String formaSelecionada = cbForma.getSelectedItem().toString();
         if(txtTamanho.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "A dimensão da pizza deve ser informada! (Lado/Raio)", "Erro", JOptionPane.ERROR_MESSAGE);
+            showError("A dimensão da pizza deve ser informada! (Lado/Raio)");
             return null;
         }
 
         if(txtQuantidade.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "A quantidade da pizza deve ser informada!", "Erro", JOptionPane.ERROR_MESSAGE);
+            showError("A quantidade da pizza deve ser informada!");
+            return null;
+        }
+        
+        if (sabor1 == null) {
+            showError("Por favor, selecione o sabor 1");
             return null;
         }
 
@@ -498,19 +548,19 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
         switch(formaSelecionada){
             case("Quadrado"):
             if(tamanho < 10 || tamanho > 40){
-                JOptionPane.showMessageDialog(null, "O lado da pizza retangular deve possuir no mínimo 10 cm e no máximo 40 cm!", "Erro", JOptionPane.ERROR_MESSAGE);
+                showError("O lado da pizza retangular deve possuir no mínimo 10 cm e no máximo 40 cm!");
                 return null;
             }
             break;
             case("Triângulo"):
             if(tamanho < 20 || tamanho > 60){
-                JOptionPane.showMessageDialog(null, "O lado da pizza triangular deve possuir no mínimo 20 cm e no máximo 60 cm!", "Erro", JOptionPane.ERROR_MESSAGE);
+                showError("O lado da pizza triangular deve possuir no mínimo 20 cm e no máximo 60 cm!");
                 return null;
             }
             break;
             case("Círculo"):
             if(tamanho < 7 || tamanho > 23){
-                JOptionPane.showMessageDialog(null, "O raio da pizza circular deve possuir no mínimo 7 cm e no máximo 23 cm!", "Erro", JOptionPane.ERROR_MESSAGE);
+               showError("O raio da pizza circular deve possuir no mínimo 7 cm e no máximo 23 cm!");
                 return null;
             }
             break;
@@ -521,8 +571,12 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
         PizzaTb pizzaTb = new PizzaTb();
         pizzaTb.setForma(formaSelecionada);
         pizzaTb.setTamanho(tamanho);
+        ArrayList<SaborTb> saboresPizza = new ArrayList<SaborTb>();
+        saboresPizza.add(sabor1);
+        if(sabor2 != null) saboresPizza.add(sabor2);
+        pizzaTb.setSaborTbCollection(saboresPizza);
+        
         //pizzaTb.setTotalPizza(txtQuantidade.getValue() * ((/*sabor1.getValor() + sabor2.getValor()*/)/2));
-        //pizzaTb.setSaborTbCollection(new ArrayList<SaborTb>());
         return pizzaTb;
     }
 
@@ -539,8 +593,18 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
     }
 
     @Override
-    public void setForm(PizzaTb model) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setForm(PizzaTb pizza) {
+        this.element = pizza;
+        List<SaborTb> pizzaSabores = (List<SaborTb>) pizza.getSaborTbCollection();
+        cbSabor2.setSelectedIndex(0);
+        cbSabor1.setSelectedIndex(0);
+        for (int i = 0; i < pizzaSabores.size(); i++) {
+            int index = sabores.indexOf(pizzaSabores.get(i));
+            if (i == 0) cbSabor1.setSelectedIndex(index + 1);
+            else cbSabor2.setSelectedIndex(index + 1);
+        }
+        txtTamanho.setText(Double.toString(pizza.getTamanho()));
+        cbForma.setSelectedItem(pizza.getForma());
     }
 
     @Override
@@ -550,6 +614,7 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
 
     @Override
     public List<PizzaTb> getModels() {
+        clearForm();
         int[] linhasSelecionadas = jTable.getSelectedRows();
         List<PizzaTb> listaExcluir = new ArrayList();
         for (int i = 0; i < linhasSelecionadas.length; i++) {
@@ -561,17 +626,25 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
 
     @Override
     public void updateModel(PizzaTb model) {
+        clearForm();
         this.model.fireTableRowsUpdated(this.linhaClicadaParaAtualizacao, this.linhaClicadaParaAtualizacao);
     }
 
     @Override
     public void insertModel(PizzaTb model) {
+        clearForm();
         this.model.insert(model);
     }
 
     @Override
     public void deleteModel(List<PizzaTb> models) {
-        this.element = null;
+        clearForm();
         this.model.removeModels(models);
+    }
+    
+    private void clearForm() {
+        this.element = null;
+        cbSabor2.setSelectedIndex(0);
+        cbSabor1.setSelectedIndex(0);
     }
 }

@@ -7,7 +7,6 @@ package com.mycompany.pizzaproject.views;
 
 import com.mycompany.pizzaproject.models.PizzaTb;
 import com.mycompany.pizzaproject.models.SaborTb;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -18,27 +17,27 @@ public class PizzaTabela extends TableModel<PizzaTb>{
     
     public PizzaTabela(List<PizzaTb> lista){
         super(lista);
-        this.colunas = new String[]{"Formato","Sabor 1", "Sabor 2", "Área(cm²)", "Preço"};
+        this.colunas = new String[]{"Formato","Sabor 1", "Sabor 2", "Lado/Raio(cm)", "Preço"};
     }
 
     public PizzaTabela(){
         super();
-        this.colunas = new String[]{"Formato","Sabor 1", "Sabor 2", "Área(cm²)", "Preço"};
+        this.colunas = new String[]{"Formato","Sabor 1", "Sabor 2", "Lado/Raio(cm)", "Preço"};
     }
 
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         PizzaTb pizza = lista.get(rowIndex);
-        Collection<SaborTb> sabores = pizza.getSaborTbCollection();
+        List<SaborTb> sabores = (List<SaborTb>) pizza.getSaborTbCollection();
         String sabor1 = "";
         String sabor2 = "";
         
         try {
-            sabor1 = sabores.iterator().next().getDescricao();
-            sabor2 = sabores.iterator().next().getDescricao();
+            sabor1 = sabores.get(0).getDescricao();
+            sabor2 = sabores.get(1).getDescricao();
         } catch(Exception ex) {
-            //TODO
+            sabor2 = "";
         }
         
         switch (columnIndex) {

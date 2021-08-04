@@ -10,6 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,9 +46,9 @@ public class PedidoTb extends Model {
     @Column(name = "status")
     private String status;
     @JoinColumn(name = "cliente_id", referencedColumnName = "cliente_id")
-    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private ClienteTb clienteId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoId", fetch = FetchType.EAGER)
     private Collection<PizzaTb> pizzaTbCollection;
 
     public PedidoTb() {
