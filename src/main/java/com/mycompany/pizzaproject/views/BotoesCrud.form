@@ -52,7 +52,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="botaoAtualizar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Atualizar"/>
+        <Property name="text" type="java.lang.String" value="Editar"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="botaoExcluir">

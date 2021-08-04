@@ -36,7 +36,7 @@ public class BotoesCrud extends javax.swing.JPanel {
 
         botaoCriar.setText("Criar");
 
-        botaoAtualizar.setText("Atualizar");
+        botaoAtualizar.setText("Editar");
 
         botaoExcluir.setText("Excluir");
 
