@@ -85,8 +85,19 @@ public class ClienteTbJpaController extends Controller<ClienteDao, ClienteView> 
 
     @Override
     public void find() {
-         ClienteTb cliente = this.dao.find(1);
+        ClienteTb cliente = this.dao.find(1);
     }  
+    
+    public List<ClienteTb> findBySobrenome(String sobrenome) {
+        try {
+            EntityManager em = getEntityManager();
+            List<ClienteTb> clientes = (List<ClienteTb>) em.createQuery("SELECT c FROM ClienteTb c WHERE c.sobrenome LIKE ?1").setParameter(1, sobrenome + '%').getResultList();
+            return clientes;
+        } catch(Exception ex) {
+            this.view.showError("Erro ao listar os clientes.");
+            return null;
+        }
+    }
     
     public ClienteTb findByTelefone(String telefone) {
         EntityManager em = getEntityManager();

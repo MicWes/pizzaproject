@@ -20,8 +20,14 @@ public class ClienteView extends View<ClienteTb, ClienteTbJpaController, Cliente
     /**
      * Creates new form ClienteView
      */
+    
+    private ClienteTbJpaController clienteController;
+    private ClienteTb clienteTb;
+    
     public ClienteView() {
         initComponents();
+        this.clienteController = new ClienteTbJpaController(true);
+        this.clienteTb = null;
         this.model = new ClienteTabela();
         this.element = null;
         setLocationRelativeTo(null);
@@ -121,6 +127,7 @@ public class ClienteView extends View<ClienteTb, ClienteTbJpaController, Cliente
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txFilter_telefone.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -195,7 +202,16 @@ public class ClienteView extends View<ClienteTb, ClienteTbJpaController, Cliente
     
     private void btn_filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filterActionPerformed
         // TODO add your handling code here:
-        
+        if (!txFilter_telefone.getText().equals("(  )      -    ")){
+            clienteTb = this.clienteController.findByTelefone(txFilter_telefone.getText());
+            setForm(clienteTb);
+        } else if (!txFilter_sobrenome.getText().isEmpty()){
+            this.model.limpaTabela();
+            List<ClienteTb> clientes = this.clienteController.findBySobrenome(txFilter_sobrenome.getText());
+            list(clientes);
+        } else {
+            this.showInfo("Preencha ao menos um dos campos antes de filtrar!");
+        }
     }//GEN-LAST:event_btn_filterActionPerformed
 
     /**
