@@ -113,7 +113,7 @@ public class MenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnClientesActionPerformed
 
     private void jBtnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPedidoActionPerformed
-         new PedidosView().setVisible(true);
+         new PedidoForm().setVisible(true);
     }//GEN-LAST:event_jBtnPedidoActionPerformed
 
     private void jBtnSaboresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaboresActionPerformed
