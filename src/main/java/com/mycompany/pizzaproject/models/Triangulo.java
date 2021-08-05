@@ -7,10 +7,6 @@ package com.mycompany.pizzaproject.models;
 
 import static java.lang.Math.sqrt;
 
-/**
- *
- * @author Gustavo-Kamila
- */
 public class Triangulo extends Forma{
     
     private double lado;

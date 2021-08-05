@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author math
- */
 public abstract class TableModel<T extends Model> extends AbstractTableModel{
     public String[] colunas;
     public List<T> lista=new ArrayList();

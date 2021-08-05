@@ -9,10 +9,7 @@ import com.mycompany.pizzaproject.dao.Dao;
 import com.mycompany.pizzaproject.views.View;
 import java.io.Serializable;
 
-/**
- *
- * @author mathe
- */
+
 public abstract class Controller<T extends Dao, V> implements Serializable {
     
     public V view;

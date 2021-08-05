@@ -8,10 +8,6 @@ package com.mycompany.pizzaproject.views;
 import com.mycompany.pizzaproject.models.ClienteTb;
 import java.util.List;
 
-/**
- *
- * @author Michael
- */
 public class ClienteTabela extends TableModel<ClienteTb>{
     
     public ClienteTabela(List<ClienteTb> lista){

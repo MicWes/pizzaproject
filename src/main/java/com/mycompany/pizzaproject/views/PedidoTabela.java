@@ -8,10 +8,6 @@ package com.mycompany.pizzaproject.views;
 import com.mycompany.pizzaproject.models.PedidoTb;
 import java.util.List;
 
-/**
- *
- * @author Rafael
- */
 public class PedidoTabela extends TableModel<PedidoTb>{
     
     public PedidoTabela(List<PedidoTb> lista){

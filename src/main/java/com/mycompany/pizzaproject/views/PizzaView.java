@@ -16,10 +16,6 @@ import java.util.List;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-/**
- *
- * @author rafae
- */
 public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, PizzaTabela> {
 
     private PizzaTbJpaController controller;

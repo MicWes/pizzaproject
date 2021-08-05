@@ -12,10 +12,6 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-/**
- *
- * @author mathe
- */
 public class PizzaDao extends Dao<PizzaTb> {
 
     public PizzaDao() {

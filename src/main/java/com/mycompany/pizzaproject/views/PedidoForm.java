@@ -10,10 +10,7 @@ import com.mycompany.pizzaproject.controllers.PedidoTbJpaController;
 import com.mycompany.pizzaproject.models.ClienteTb;
 import com.mycompany.pizzaproject.models.PedidoTb;
 import javax.swing.JOptionPane;
-/**
- *
- * @author gusta
- */
+
 public class PedidoForm extends javax.swing.JFrame {
 
     private ClienteTb clienteTb;

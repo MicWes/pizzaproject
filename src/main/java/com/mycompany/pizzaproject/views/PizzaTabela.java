@@ -9,10 +9,6 @@ import com.mycompany.pizzaproject.models.PizzaTb;
 import com.mycompany.pizzaproject.models.SaborTb;
 import java.util.List;
 
-/**
- *
- * @author Rafael
- */
 public class PizzaTabela extends TableModel<PizzaTb>{
     
     public PizzaTabela(List<PizzaTb> lista){

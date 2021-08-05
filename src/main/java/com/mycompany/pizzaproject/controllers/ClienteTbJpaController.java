@@ -12,10 +12,6 @@ import com.mycompany.pizzaproject.views.ClienteView;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-/**
- *
- * @author Michael
- */
 public class ClienteTbJpaController extends Controller<ClienteDao, ClienteView> {
 
     public ClienteTbJpaController() {

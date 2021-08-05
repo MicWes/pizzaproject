@@ -11,10 +11,6 @@ import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author mathe
- */
 public class PedidoView extends View<PedidoTb, PedidoTbJpaController, PedidoTabela> {
     
     private PedidoTbJpaController controller;

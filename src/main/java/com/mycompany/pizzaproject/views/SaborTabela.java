@@ -8,10 +8,6 @@ package com.mycompany.pizzaproject.views;
 import com.mycompany.pizzaproject.models.SaborTb;
 import java.util.List;
 
-/**
- *
- * @author Rafael
- */
 public class SaborTabela extends TableModel<SaborTb>{
     
     public SaborTabela(List<SaborTb> lista){

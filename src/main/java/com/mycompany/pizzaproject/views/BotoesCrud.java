@@ -7,10 +7,6 @@ package com.mycompany.pizzaproject.views;
 
 import com.mycompany.pizzaproject.controllers.Controller;
 
-/**
- *
- * @author rafae
- */
 public class BotoesCrud extends javax.swing.JPanel {
 
     /**

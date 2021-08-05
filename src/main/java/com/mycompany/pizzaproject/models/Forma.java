@@ -5,10 +5,6 @@
  */
 package com.mycompany.pizzaproject.models;
 
-/**
- *
- * @author Gustavo-Kamila
- */
 public class Forma {
     protected double area;
     protected String tipo;

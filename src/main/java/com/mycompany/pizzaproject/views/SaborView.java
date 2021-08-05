@@ -12,10 +12,6 @@ import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author mathe
- */
 public class SaborView extends View<SaborTb, SaborTbJpaController, SaborTabela> {
     
     /**
