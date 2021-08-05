@@ -38,8 +38,16 @@ public class ClienteTbJpaController extends Controller<ClienteDao, ClienteView> 
     public void create() {
         try {
             ClienteTb cliente = this.view.getForm();
-            this.dao.create(cliente);
-            this.view.insertModel(cliente);
+            if (cliente.getNome().isEmpty()){
+                this.view.showError("Por favor insira o Nome do Cliente.");
+            } else if (cliente.getSobrenome().isEmpty()){
+                this.view.showError("Por favor insira o Sobrenome do Cliente.");
+            } else if (cliente.getTelefone().equals("(  )      -    ")) {
+                this.view.showError("Por favor insira o Telefone do Cliente.");
+            } else {
+                this.dao.create(cliente);
+                this.view.insertModel(cliente);
+            } 
         } catch (Exception ex) {
             this.view.showError("Erro ao inserir um novo cliente.");
         }
