@@ -10,10 +10,6 @@ import com.mycompany.pizzaproject.dao.SaborDao;
 import com.mycompany.pizzaproject.views.SaborView;
 import java.util.List;
 
-/**
- *
- * @author Michael
- */
 public class SaborTbJpaController extends Controller<SaborDao, SaborView> {
 
     public SaborTbJpaController() {

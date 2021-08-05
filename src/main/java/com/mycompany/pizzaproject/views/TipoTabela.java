@@ -8,10 +8,6 @@ package com.mycompany.pizzaproject.views;
 import com.mycompany.pizzaproject.models.TipoTb;
 import java.util.List;
 
-/**
- *
- * @author Rafael
- */
 public class TipoTabela extends TableModel<TipoTb>{
     
     public TipoTabela(List<TipoTb> lista){

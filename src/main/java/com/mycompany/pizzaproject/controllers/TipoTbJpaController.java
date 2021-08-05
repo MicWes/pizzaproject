@@ -10,10 +10,6 @@ import com.mycompany.pizzaproject.dao.TipoDao;
 import com.mycompany.pizzaproject.views.TipoView;
 import java.util.List;
 
-/**
- *
- * @author Michael
- */
 public class TipoTbJpaController extends Controller<TipoDao, TipoView> {
 
     public TipoTbJpaController() {

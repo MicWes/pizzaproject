@@ -15,10 +15,6 @@ import com.mycompany.pizzaproject.models.Triangulo;
 import com.mycompany.pizzaproject.views.PizzaView;
 import java.util.List;
 
-/**
- *
- * @author Michael
- */
 public class PizzaTbJpaController extends Controller<PizzaDao, PizzaView> {
     
     private PedidoTb pedido;
@@ -146,5 +142,4 @@ public class PizzaTbJpaController extends Controller<PizzaDao, PizzaView> {
             return 0.0;
         }
     }
-    
 }

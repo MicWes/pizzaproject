@@ -9,10 +9,6 @@ import com.mycompany.pizzaproject.controllers.TipoTbJpaController;
 import com.mycompany.pizzaproject.models.TipoTb;
 import java.util.List;
 
-/**
- *
- * @author rafae
- */
 public final class TipoInput extends javax.swing.JPanel {
 
     private TipoTbJpaController controller;

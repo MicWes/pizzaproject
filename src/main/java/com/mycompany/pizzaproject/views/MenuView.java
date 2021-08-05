@@ -10,10 +10,6 @@ import com.mycompany.pizzaproject.controllers.PedidoTbJpaController;
 import com.mycompany.pizzaproject.controllers.SaborTbJpaController;
 import com.mycompany.pizzaproject.controllers.TipoTbJpaController;
 
-/**
- *
- * @author Michael
- */
 public class MenuView extends javax.swing.JFrame {
 
     /**

@@ -11,10 +11,6 @@ import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author mathe
- */
 public class TipoView extends View<TipoTb, TipoTbJpaController, TipoTabela> {
     
     /**

@@ -9,10 +9,6 @@ import com.mycompany.pizzaproject.models.Model;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-/**
- *
- * @author mathe
- */
 public abstract class Dao<T extends Model> {
     
     public EntityManager getEntityManager() {

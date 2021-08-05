@@ -7,10 +7,6 @@ package com.mycompany.pizzaproject;
 
 import com.mycompany.pizzaproject.views.MenuView;
 
-/**
- *
- * @author Michael
- */
 public class PizzaMain {
 
     /**

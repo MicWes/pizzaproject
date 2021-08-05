@@ -7,10 +7,6 @@ package com.mycompany.pizzaproject.models;
 
 import java.io.Serializable;
 
-/**
- *
- * @author mathe
- */
 public abstract class Model implements Serializable {
     private static final long serialVersionUID = 1L;
     

@@ -21,10 +21,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/**
- *
- * @author Michael
- */
 @Entity
 @Table(name = "pedido_tb")
 @NamedQueries({

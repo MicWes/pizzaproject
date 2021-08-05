@@ -10,11 +10,6 @@ import com.mycompany.pizzaproject.models.Model;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author mathe
- * @param <T>
- */
 public abstract class ViewPart<T extends Model, V extends Controller, W extends TableModel> extends javax.swing.JPanel {
     
     public T element;

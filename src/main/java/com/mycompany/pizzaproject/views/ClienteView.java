@@ -11,10 +11,6 @@ import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Michael
- */
 public class ClienteView extends View<ClienteTb, ClienteTbJpaController, ClienteTabela> {
 
     /**
