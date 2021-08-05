@@ -48,7 +48,7 @@ public class PedidoTb extends Model {
     @JoinColumn(name = "cliente_id", referencedColumnName = "cliente_id")
     @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private ClienteTb clienteId;
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "pedidoId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "pedidoId", fetch = FetchType.EAGER)
     private Collection<PizzaTb> pizzaTbCollection;
 
     public PedidoTb() {
