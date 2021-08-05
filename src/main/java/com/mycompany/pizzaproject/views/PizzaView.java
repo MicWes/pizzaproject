@@ -7,6 +7,7 @@ package com.mycompany.pizzaproject.views;
 
 import com.mycompany.pizzaproject.controllers.PedidoTbJpaController;
 import com.mycompany.pizzaproject.controllers.PizzaTbJpaController;
+import com.mycompany.pizzaproject.models.PedidoTb;
 import com.mycompany.pizzaproject.models.PizzaTb;
 import com.mycompany.pizzaproject.models.SaborTb;
 import java.awt.event.MouseAdapter;
@@ -519,11 +520,16 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
 
     @Override
     public void list(List<PizzaTb> models) {
+        list(models, new PedidoTb());
+    };
+    
+    public void list(List<PizzaTb> models, PedidoTb pedido) {
         this.element = null;
         this.model.limpaTabela();
         models.forEach(pizza -> {
             this.model.insert(pizza);
         });
+        txtTotalPedido.setText(Double.toString(pedido.getTotalPedido()));
     }
 
     @Override
@@ -573,10 +579,16 @@ public final class PizzaView extends ViewPart<PizzaTb, PizzaTbJpaController, Piz
         pizzaTb.setTamanho(tamanho);
         ArrayList<SaborTb> saboresPizza = new ArrayList<SaborTb>();
         saboresPizza.add(sabor1);
-        if(sabor2 != null) saboresPizza.add(sabor2);
+        double amount = sabor1.getTipoTb().getPreco();
+        if(sabor2 != null) {
+            amount = ((amount + sabor2.getTipoTb().getPreco()) / 2);
+            saboresPizza.add(sabor2);
+        }
         pizzaTb.setSaborTbCollection(saboresPizza);
         
-        //pizzaTb.setTotalPizza(txtQuantidade.getValue() * ((/*sabor1.getValor() + sabor2.getValor()*/)/2));
+        double size = Double.parseDouble(txtQuantidade.getText().replace(",", "."));
+        
+        pizzaTb.setTotalPizza(amount * size);
         return pizzaTb;
     }
 

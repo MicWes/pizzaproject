@@ -23,6 +23,7 @@ public class PizzaTbJpaController extends Controller<PizzaDao, PizzaView> {
     
     private PedidoTb pedido;
     private PedidoDao pedidoDao;
+    private double amount;
  
     public PizzaTbJpaController(PizzaView view) {
         this.view = view;
@@ -38,15 +39,25 @@ public class PizzaTbJpaController extends Controller<PizzaDao, PizzaView> {
     public void setPedido(PedidoTb pedido) {
         this.pedido = pedido;
     }
-        
+    
+    private void updateAmount(List<PizzaTb> pizzas){
+        this.amount = 0.0;
+        pizzas.forEach(pizza -> {
+            this.amount += pizza.getTotalPizza();
+        });
+        this.pedido.setTotalPedido(amount);
+        this.pedidoDao.update(pedido);
+    }
+    
     @Override
     public void list() {
         try {
             this.pedido = this.pedidoDao.find(this.pedido.getPedidoId());
             List<PizzaTb> pizzas = (List<PizzaTb>) this.pedido.getPizzaTbCollection();
-            this.view.list(pizzas);
+            updateAmount(pizzas);
+            this.view.list(pizzas, this.pedido);
         } catch(Exception ex) {
-            this.view.showError("Erro ao listar os tipos.");
+            this.view.showError("Erro ao listar as pizzas do pedido.");
         }
     }
 
@@ -63,7 +74,7 @@ public class PizzaTbJpaController extends Controller<PizzaDao, PizzaView> {
             this.dao.create(pizza);
             list();
         } catch (Exception ex) {
-            this.view.showError("Erro ao inserir um novo tipo.");
+            this.view.showError("Erro ao inserir uma nova pizza.");
         }
     }
 
@@ -71,6 +82,7 @@ public class PizzaTbJpaController extends Controller<PizzaDao, PizzaView> {
     public void edit() {
        try{
             PizzaTb pizza = this.view.getForm(true);
+            pizza.setPedidoId(pedido);
             if(pizza==null){
                 this.view.showInfo("Selecione um contato na tabela para atualizar.");
             } else {
@@ -79,7 +91,8 @@ public class PizzaTbJpaController extends Controller<PizzaDao, PizzaView> {
                 list();
             }
         }catch(Exception ex){
-            view.showError("Erro ao atualizar o tipo.");
+            System.out.print(ex);
+            view.showError("Erro ao atualizar a pizza.");
         }
     }
 
@@ -92,7 +105,7 @@ public class PizzaTbJpaController extends Controller<PizzaDao, PizzaView> {
             }
             list();
         } catch(Exception ex){
-            view.showError("Erro ao excluir os tipos.");
+            view.showError("Erro ao excluir as pizza.");
         }
     }
     

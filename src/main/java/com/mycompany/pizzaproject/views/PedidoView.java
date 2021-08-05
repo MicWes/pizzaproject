@@ -168,7 +168,7 @@ public class PedidoView extends View<PedidoTb, PedidoTbJpaController, PedidoTabe
     }//GEN-LAST:event_jNewActionPerformed
 
     private void jUpdateStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUpdateStatusActionPerformed
-        //this.controller.create();
+        this.controller.updateStatus();
     }//GEN-LAST:event_jUpdateStatusActionPerformed
 
     private void jUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUpdateActionPerformed

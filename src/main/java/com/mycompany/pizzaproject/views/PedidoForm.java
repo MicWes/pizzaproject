@@ -194,7 +194,6 @@ public class PedidoForm extends javax.swing.JFrame {
         if (this.clienteTb != null) {
             this.pedido = new PedidoTb();
             this.pedido.setClienteId(clienteTb);
-            this.pedido.setStatus("Criando");
             this.pedido.setTotalPedido(0.00);
             this.pedido = this.controller.save(pedido);
             if (this.pedido != null) {

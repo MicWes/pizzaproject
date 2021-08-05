@@ -45,7 +45,7 @@ public class PedidoTbJpaController extends Controller<PedidoDao, PedidoView> {
             List<PedidoTb> tipos = this.dao.list(true, -1, -1);
             this.view.list(tipos);
         } catch(Exception ex) {
-            this.view.showError("Erro ao listar os tipos.");
+            this.view.showError("Erro ao listar os pedidos.");
         }
     }
     
@@ -59,7 +59,7 @@ public class PedidoTbJpaController extends Controller<PedidoDao, PedidoView> {
         try {
             this.form = new PedidoForm();
         } catch (Exception ex) {
-            this.view.showError("Erro ao inserir um novo tipo.");
+            this.view.showError("Erro ao abrir o formulário");
         }
     }
     
@@ -68,7 +68,7 @@ public class PedidoTbJpaController extends Controller<PedidoDao, PedidoView> {
             this.dao.create(pedido);
             return pedido;
         } catch (Exception ex) {
-            this.view.showError("Erro ao inserir um novo tipo.");
+            this.view.showError("Erro ao salvar um novo pedido");
             return null;
         }
     }
@@ -79,11 +79,28 @@ public class PedidoTbJpaController extends Controller<PedidoDao, PedidoView> {
             PedidoTb pedido = this.view.getModel();
             if (pedido == null) {
                 this.view.showError("Selecione um pedido para editar");
+            } else if (!pedido.isEditable()) {
+                this.view.showError("Não é possível editar mais o pedido.");
             } else {
                 this.form = new PedidoForm(pedido);
             }
         }catch(Exception ex){
-            view.showError("Erro ao atualizar o tipo.");
+            view.showError("Erro ao abrir o formulário.");
+        }
+    }
+    
+    public void updateStatus() {
+        try {
+             PedidoTb pedido = this.view.getModel();
+            if (pedido == null) {
+                this.view.showError("Selecione um pedido para atualizar");
+            } else {
+                pedido.nextStatus();
+                this.dao.update(pedido);
+                this.view.updateModel(pedido);
+            }
+        } catch (Exception ex) {
+            view.showError("Não foi possível atualizar o status");
         }
     }
 
@@ -96,7 +113,7 @@ public class PedidoTbJpaController extends Controller<PedidoDao, PedidoView> {
             }
             this.view.deleteModel(tipos);
         } catch(Exception ex){
-            view.showError("Erro ao excluir os tipos.");
+            view.showError("Erro ao excluir os pedidos.");
         }
     }
     

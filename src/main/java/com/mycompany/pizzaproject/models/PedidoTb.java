@@ -48,14 +48,16 @@ public class PedidoTb extends Model {
     @JoinColumn(name = "cliente_id", referencedColumnName = "cliente_id")
     @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private ClienteTb clienteId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "pedidoId", fetch = FetchType.EAGER)
     private Collection<PizzaTb> pizzaTbCollection;
 
     public PedidoTb() {
+        this.status = "Aberto";
     }
 
     public PedidoTb(Integer pedidoId) {
         this.pedidoId = pedidoId;
+        this.status = "Aberto";
     }
 
     public PedidoTb(Integer pedidoId, double totalPedido, String status) {
@@ -127,6 +129,21 @@ public class PedidoTb extends Model {
     @Override
     public String toString() {
         return "com.mycompany.pizzaproject.models.PedidoTb[ pedidoId=" + pedidoId + " ]";
+    }
+
+    public void nextStatus() {
+         switch (this.status) {
+            case "Aberto":
+                this.status = "Caminho";
+                break;
+            case "Caminho": 
+                this.status = "Entregue";
+                break;
+        }
+    }
+
+    public boolean isEditable() {
+        return "Aberto".equals(this.status);
     }
     
 }
