@@ -23,6 +23,7 @@ public class PedidoForm extends javax.swing.JFrame {
     
     public PedidoForm() {
         initComponents();
+        setLocationRelativeTo(null);
         this.clienteController = new ClienteTbJpaController(true);
         this.controller = new PedidoTbJpaController(true);
         this.clienteTb = null;
